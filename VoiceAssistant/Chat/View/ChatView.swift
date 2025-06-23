@@ -43,7 +43,7 @@ struct ChatView: View {
         HStack {
             Spacer(minLength: 4 * .grid)
             Text(text.trimmingCharacters(in: .whitespacesAndNewlines))
-                .font(.system(size: 15))
+                .font(.system(size: 17))
                 .padding(.horizontal, 4 * .grid)
                 .padding(.vertical, 2 * .grid)
                 .foregroundStyle(.fg1)
@@ -58,7 +58,7 @@ struct ChatView: View {
     private func agentTranscript(_ text: String) -> some View {
         HStack {
             Text(text.trimmingCharacters(in: .whitespacesAndNewlines))
-                .font(.system(size: 20))
+                .font(.system(size: 17))
                 .padding(.vertical, 2 * .grid)
             Spacer(minLength: 4 * .grid)
         }
