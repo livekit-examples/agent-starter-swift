@@ -26,7 +26,7 @@ struct BlurredTop: ViewModifier {
 
 /// A view modifier that creates a shimmering effect.
 struct Shimerring: ViewModifier {
-    @State private var isShimmering = false
+    @State private var isShimmering = true
 
     func body(content: Content) -> some View {
         content
@@ -41,10 +41,10 @@ struct Shimerring: ViewModifier {
                     startPoint: isShimmering ? UnitPoint(x: -1, y: 0) : UnitPoint(x: 1, y: 0),
                     endPoint: isShimmering ? UnitPoint(x: 0, y: 0) : UnitPoint(x: 2, y: 0)
                 )
-                .animation(.linear(duration: 5).repeatForever(autoreverses: true), value: isShimmering)
+                .animation(.linear(duration: 2.5).repeatForever(autoreverses: false), value: isShimmering)
             )
             .onAppear {
-                isShimmering = true
+                isShimmering = false
             }
     }
 }
