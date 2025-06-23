@@ -9,6 +9,7 @@ import SwiftUI
 ///
 /// Additionally, the view shows a complete chat view with text input capabilities.
 struct TextInteractionView: View {
+    @Environment(AppViewModel.self) private var viewModel
     @FocusState.Binding var keyboardFocus: Bool
 
     var body: some View {
@@ -36,11 +37,12 @@ struct TextInteractionView: View {
         HStack {
             Spacer()
             AgentParticipantView()
+                .frame(maxWidth: 25 * .grid)
             ScreenShareView()
             LocalParticipantView()
             Spacer()
         }
-        .frame(height: 50 * .grid)
+        .frame(height: viewModel.isCameraEnabled || viewModel.isScreenShareEnabled ? 50 * .grid : 25 * .grid)
         .safeAreaPadding()
     }
 }
