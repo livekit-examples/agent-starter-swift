@@ -17,7 +17,7 @@ struct ChatView: View {
         }
         .upsideDown()
         .listStyle(.plain)
-        .scrollIndicators(.hidden)
+        .scrollIndicators(.never)
         .scrollContentBackground(.hidden)
         .animation(.default, value: viewModel.messages)
     }
