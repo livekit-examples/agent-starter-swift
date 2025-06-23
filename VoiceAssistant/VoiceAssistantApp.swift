@@ -28,5 +28,5 @@ struct AgentFeatures: OptionSet {
     static let text = Self(rawValue: 1 << 1)
     static let video = Self(rawValue: 1 << 2)
 
-    static let current: Self = [.voice, .text]
+    static let current: Self = [.voice, .text, .video]
 }
