@@ -607,7 +607,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VoiceAssistant/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_CFBundleDisplayName = VoiceAssistant;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "VoiceAssistant uses your camera";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "VoiceAssistant uses your microphone";
@@ -652,7 +652,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VoiceAssistant/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_CFBundleDisplayName = VoiceAssistant;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "VoiceAssistant uses your camera";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "VoiceAssistant uses your microphone";
