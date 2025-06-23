@@ -37,7 +37,7 @@ struct AgentParticipantView: View {
                                    barMinOpacity: 0.1)
                     .frame(maxWidth: 75 * .grid, maxHeight: 48 * .grid)
                     .transition(.opacity)
-            } else {
+            } else if viewModel.isInteractive {
                 BarAudioVisualizer(audioTrack: nil,
                                    agentState: .listening,
                                    barCount: 1,
@@ -46,7 +46,7 @@ struct AgentParticipantView: View {
                     .transition(.opacity)
             }
         }
-        .animation(.default, value: viewModel.agentAudioTrack?.id)
+        .animation(.snappy, value: viewModel.agentAudioTrack?.id)
         .matchedGeometryEffect(id: "agent", in: namespace!)
     }
 }
