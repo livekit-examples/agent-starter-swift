@@ -245,17 +245,28 @@ final class AppViewModel {
     }
 
     func toggleCamera() async {
+        let enable = !isCameraEnabled
         do {
+            // One video track at a time
+            if enable, isScreenShareEnabled {
+                try await room.localParticipant.setScreenShare(enabled: false)
+            }
+
             let device = try await CameraCapturer.captureDevices().first(where: { $0.uniqueID == selectedVideoDeviceID })
-            try await room.localParticipant.setCamera(enabled: !isCameraEnabled, captureOptions: CameraCaptureOptions(device: device))
+            try await room.localParticipant.setCamera(enabled: enable, captureOptions: CameraCaptureOptions(device: device))
         } catch {
             errorHandler(error)
         }
     }
 
     func toggleScreenShare() async {
+        let enable = !isScreenShareEnabled
         do {
-            try await room.localParticipant.setScreenShare(enabled: !isScreenShareEnabled)
+            // One video track at a time
+            if enable, isCameraEnabled {
+                try await room.localParticipant.setCamera(enabled: false)
+            }
+            try await room.localParticipant.setScreenShare(enabled: enable)
         } catch {
             errorHandler(error)
         }
