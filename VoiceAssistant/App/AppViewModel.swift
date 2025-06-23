@@ -117,7 +117,8 @@ final class AppViewModel {
                 isScreenShareEnabled = room.localParticipant.isScreenShareEnabled()
                 screenShareTrack = room.localParticipant.firstScreenShareVideoTrack
 
-                agentAudioTrack = room.agentParticipant?.firstAudioTrack
+                agentAudioTrack = room.agentParticipant?.audioTracks
+                    .first(where: { $0.source == .microphone })?.track as? AudioTrack
                 avatarCameraTrack = room.agentParticipant?.avatarWorker?.firstCameraVideoTrack
             }
         }
