@@ -56,14 +56,9 @@ struct ChatTextInputView: View {
                 .frame(width: 8 * .grid, height: 8 * .grid)
         }
         #if os(iOS)
-        .padding(.trailing, 3 * .grid)
+        .padding([.bottom, .trailing], 3 * .grid)
         #else
-        .padding(.trailing, 2 * .grid)
-        #endif
-        #if os(iOS)
-        .padding(.bottom, 3 * .grid)
-        #else
-        .padding(.bottom, 2 * .grid)
+        .padding([.bottom, .trailing], 2 * .grid)
         #endif
         .disabled(messageText.isEmpty)
         #if os(visionOS)
