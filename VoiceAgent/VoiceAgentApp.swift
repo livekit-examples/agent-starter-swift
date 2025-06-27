@@ -2,7 +2,7 @@ import LiveKit
 import SwiftUI
 
 @main
-struct VoiceAssistantApp: App {
+struct VoiceAgentApp: App {
     // Create the root view model
     private let viewModel = AppViewModel()
 

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1630"
-   version = "1.7">
+   wasCreatedForAppExtension = "YES"
+   version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES"
@@ -15,10 +16,24 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ACAEBA572DE6EE970072E93E"
+               BuildableName = "BroadcastExtension.appex"
+               BlueprintName = "BroadcastExtension"
+               ReferencedContainer = "container:VoiceAgent.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "B5B5E3B12D124AE00099C9BE"
-               BuildableName = "VoiceAssistant.app"
-               BlueprintName = "VoiceAssistant"
-               ReferencedContainer = "container:VoiceAssistant.xcodeproj">
+               BuildableName = "VoiceAgent.app"
+               BlueprintName = "VoiceAgent"
+               ReferencedContainer = "container:VoiceAgent.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -27,13 +42,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <TestPlans>
-         <TestPlanReference
-            reference = "container:VoiceAssistant/VoiceAssistant.xctestplan"
-            default = "YES">
-         </TestPlanReference>
-      </TestPlans>
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
       <Testables>
          <TestableReference
             skipped = "NO"
@@ -41,48 +51,56 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "ACC280262DEDDA1D0023C137"
-               BuildableName = "VoiceAssistantTests.xctest"
-               BlueprintName = "VoiceAssistantTests"
-               ReferencedContainer = "container:VoiceAssistant.xcodeproj">
+               BuildableName = "VoiceAgentTests.xctest"
+               BlueprintName = "VoiceAgentTests"
+               ReferencedContainer = "container:VoiceAgent.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
+      askForAppToLaunch = "Yes"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      allowLocationSimulation = "YES"
+      launchAutomaticallySubstyle = "2">
+      <RemoteRunnable
+         runnableDebuggingMode = "0"
+         BundleIdentifier = "com.livekit.example.VoiceAssistant"
+         RemotePath = "/var/containers/Bundle/Application/0D446371-3B0C-4020-AA6B-22058F398E0D/VoiceAssistant.app">
+      </RemoteRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B5B5E3B12D124AE00099C9BE"
-            BuildableName = "VoiceAssistant.app"
-            BlueprintName = "VoiceAssistant"
-            ReferencedContainer = "container:VoiceAssistant.xcodeproj">
+            BuildableName = "VoiceAgent.app"
+            BlueprintName = "VoiceAgent"
+            ReferencedContainer = "container:VoiceAgent.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      debugDocumentVersioning = "YES">
+      debugDocumentVersioning = "YES"
+      askForAppToLaunch = "Yes"
+      launchAutomaticallySubstyle = "2">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B5B5E3B12D124AE00099C9BE"
-            BuildableName = "VoiceAssistant.app"
-            BlueprintName = "VoiceAssistant"
-            ReferencedContainer = "container:VoiceAssistant.xcodeproj">
+            BuildableName = "VoiceAgent.app"
+            BlueprintName = "VoiceAgent"
+            ReferencedContainer = "container:VoiceAgent.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
