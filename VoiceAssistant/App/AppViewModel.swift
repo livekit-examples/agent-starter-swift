@@ -126,6 +126,7 @@ final class AppViewModel {
 
     private func observeDevices() {
         do {
+            try AudioManager.shared.set(microphoneMuteMode: .inputMixer) // don't play mute sound effect
             try AudioManager.shared.setRecordingAlwaysPreparedMode(true)
         } catch {
             errorHandler(error)
