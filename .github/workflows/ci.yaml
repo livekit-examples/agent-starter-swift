@@ -20,10 +20,10 @@ jobs:
         include:
           # https://github.com/actions/runner-images/blob/main/images/macos/macos-15-Readme.md
           - os: macos-15
-            xcode: 16.2
-            platform: "iOS Simulator,OS=18.1,name=iPhone 16 Pro"
+            xcode: 16.4
+            platform: "iOS Simulator,OS=18.5,name=iPhone 16 Pro"
           # - os: macos-15
-          #   xcode: 16.2
+          #   xcode: 16.4
           #   platform: "macOS"
 
     runs-on: ${{ matrix.os }}
@@ -45,12 +45,12 @@ jobs:
         run: xcrun swift --version
 
       - name: Setup .env
-        run: cat VoiceAssistant/.env.example.xcconfig > VoiceAssistant/.env.xcconfig
+        run: cat VoiceAgent/.env.example.xcconfig > VoiceAgent/.env.xcconfig
 
       - name: Run Tests
         run: |
           set -o pipefail && xcodebuild test \
-            -scheme VoiceAssistant \
+            -scheme VoiceAgent \
             -destination 'platform=${{ matrix.platform }}' | xcbeautify --renderer github-actions
 
   lint:

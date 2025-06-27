@@ -2,13 +2,13 @@ version: "3"
 output: interleaved
 
 vars:
-  env_file: "VoiceAssistant/.env.xcconfig"
-  env_example: "VoiceAssistant/.env.example.xcconfig"
+  env_file: "VoiceAgent/.env.xcconfig"
+  env_example: "VoiceAgent/.env.example.xcconfig"
 
 tasks:
   post_create:
     desc: "Runs after this template is instantiated as a Sandbox or Bootstrap"
     cmds:
-      - echo -e "\nYour Swift voice assistant is ready to go!\n"
-      - echo -e "To give it a try, open the VoiceAssistant.xcodeproj file in Xcode and run the app."
+      - echo -e "\nYour Swift Voice Agent is ready to go!\n"
+      - echo -e "To give it a try, open the VoiceAgent.xcodeproj file in Xcode and run the app."
       - echo -e "\nFor more help view your project's README.md file or join our Slack community at https://livekit.io/join-slack."

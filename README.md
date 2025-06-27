@@ -1,12 +1,12 @@
-<img src="./.github/assets/app-icon.png" alt="Voice Assistant App Icon" width="100" height="100">
+<img src="./.github/assets/app-icon.png" alt="Voice Agent App Icon" width="100" height="100">
 
-# Swift Voice Assistant
+# Swift Voice Agent
 
 This is a starter template for [LiveKit Agents](https://docs.livekit.io/agents/overview/) that provides a simple voice interface using the [LiveKit Swift SDK](https://github.com/livekit/client-sdk-swift). It supports [voice](https://docs.livekit.io/agents/start/voice-ai), [transcriptions](https://docs.livekit.io/agents/build/text/), and [virtual avatars](https://docs.livekit.io/agents/integrations/avatar/).
 
 This template is compatible with iOS, iPadOS, macOS, and visionOS and is free for you to use or modify as you see fit.
 
-<img src="./.github/assets/screenshot.png" alt="Voice Assistant Screenshot" height="500">
+<img src="./.github/assets/screenshot.png" alt="Voice Agent Screenshot" height="500">
 
 ## Getting started
 
@@ -17,15 +17,15 @@ First, create a new [Sandbox Token Server](https://cloud.livekit.io/projects/p_/
 Then, run the following command to automatically clone this template and connect it to LiveKit Cloud.
 
 ```bash
-lk app create --template voice-assistant-swift --sandbox <token_server_sandbox_id>
+lk app create --template voice-agent-swift --sandbox <token_server_sandbox_id>
 ```
 
-Built and run the app from Xcode by opening `VoiceAssistant.xcodeproj`. You may need to adjust your app signing settings to run the app on your device.
+Built and run the app from Xcode by opening `VoiceAgent.xcodeproj`. You may need to adjust your app signing settings to run the app on your device.
 
 You'll also need an agent to speak with. Try our [voice AI quickstart](https://docs.livekit.io/agents/start/voice-ai) for the easiest way to get started.
 
 > [!NOTE]
-> To setup without the LiveKit CLI, clone the repository and then either create a `VoiceAssistant/.env.xcconfig` with a `LIVEKIT_SANDBOX_ID` (if using a [Sandbox Token Server](https://cloud.livekit.io/projects/p_/sandbox/templates/token-server)), or open `TokenService.swift` and add your [manually generated](#token-generation) URL and token.
+> To setup without the LiveKit CLI, clone the repository and then either create a `VoiceAgent/.env.xcconfig` with a `LIVEKIT_SANDBOX_ID` (if using a [Sandbox Token Server](https://cloud.livekit.io/projects/p_/sandbox/templates/token-server)), or open `TokenService.swift` and add your [manually generated](#token-generation) URL and token.
 
 ## Token generation
 
