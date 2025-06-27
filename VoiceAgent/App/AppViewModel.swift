@@ -25,7 +25,7 @@ final class AppViewModel {
         var errorDescription: String? {
             switch self {
             case .agentNotConnected:
-                return "Agent did not connect to the Room"
+                "Agent did not connect to the Room"
             }
         }
     }
@@ -51,9 +51,9 @@ final class AppViewModel {
              .connecting where isListening,
              .connected,
              .reconnecting:
-            return true
+            true
         default:
-            return false
+            false
         }
     }
 
