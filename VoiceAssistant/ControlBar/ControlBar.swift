@@ -117,7 +117,7 @@ struct ControlBar: View {
             Spacer()
         }
         .frame(width: Constants.buttonWidth)
-        .disabled(viewModel.connectionState != .connected)
+        .disabled(viewModel.agent == nil)
     }
 
     @ViewBuilder
@@ -134,7 +134,7 @@ struct ControlBar: View {
                 borderColor: .separator1
             )
         )
-        .disabled(viewModel.connectionState != .connected)
+        .disabled(viewModel.agent == nil)
     }
 
     @ViewBuilder
@@ -151,6 +151,7 @@ struct ControlBar: View {
                 borderColor: .separator1
             )
         )
+        .disabled(viewModel.agent == nil)
     }
 
     @ViewBuilder
