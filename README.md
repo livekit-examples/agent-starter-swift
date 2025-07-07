@@ -17,7 +17,7 @@ First, create a new [Sandbox Token Server](https://cloud.livekit.io/projects/p_/
 Then, run the following command to automatically clone this template and connect it to LiveKit Cloud.
 
 ```bash
-lk app create --template voice-agent-swift --sandbox <token_server_sandbox_id>
+lk app create --template agent-starter-swift --sandbox <token_server_sandbox_id>
 ```
 
 Built and run the app from Xcode by opening `VoiceAgent.xcodeproj`. You may need to adjust your app signing settings to run the app on your device.
