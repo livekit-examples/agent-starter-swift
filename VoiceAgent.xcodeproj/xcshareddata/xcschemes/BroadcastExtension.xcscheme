@@ -72,7 +72,7 @@
       launchAutomaticallySubstyle = "2">
       <RemoteRunnable
          runnableDebuggingMode = "0"
-         BundleIdentifier = "com.livekit.example.VoiceAgent"
+         BundleIdentifier = "com.livekit.example.VoiceAssistant"
          RemotePath = "/var/containers/Bundle/Application/0D446371-3B0C-4020-AA6B-22058F398E0D/VoiceAgent.app">
       </RemoteRunnable>
       <MacroExpansion>
