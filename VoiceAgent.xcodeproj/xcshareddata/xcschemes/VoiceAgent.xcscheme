@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B5B5E3B12D124AE00099C9BE"
-               BuildableName = "VoiceAssistant.app"
-               BlueprintName = "VoiceAssistant"
-               ReferencedContainer = "container:VoiceAssistant.xcodeproj">
+               BuildableName = "VoiceAgent.app"
+               BlueprintName = "VoiceAgent"
+               ReferencedContainer = "container:VoiceAgent.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -30,7 +30,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:VoiceAssistant/VoiceAssistant.xctestplan"
+            reference = "container:VoiceAgent/VoiceAgent.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>
@@ -41,9 +41,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "ACC280262DEDDA1D0023C137"
-               BuildableName = "VoiceAssistantTests.xctest"
-               BlueprintName = "VoiceAssistantTests"
-               ReferencedContainer = "container:VoiceAssistant.xcodeproj">
+               BuildableName = "VoiceAgentTests.xctest"
+               BlueprintName = "VoiceAgentTests"
+               ReferencedContainer = "container:VoiceAgent.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -63,9 +63,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B5B5E3B12D124AE00099C9BE"
-            BuildableName = "VoiceAssistant.app"
-            BlueprintName = "VoiceAssistant"
-            ReferencedContainer = "container:VoiceAssistant.xcodeproj">
+            BuildableName = "VoiceAgent.app"
+            BlueprintName = "VoiceAgent"
+            ReferencedContainer = "container:VoiceAgent.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B5B5E3B12D124AE00099C9BE"
-            BuildableName = "VoiceAssistant.app"
-            BlueprintName = "VoiceAssistant"
-            ReferencedContainer = "container:VoiceAssistant.xcodeproj">
+            BuildableName = "VoiceAgent.app"
+            BlueprintName = "VoiceAgent"
+            ReferencedContainer = "container:VoiceAgent.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

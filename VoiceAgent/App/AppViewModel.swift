@@ -25,7 +25,7 @@ final class AppViewModel {
         var errorDescription: String? {
             switch self {
             case .agentNotConnected:
-                return "Agent did not connect to the Room"
+                "Agent did not connect to the Room"
             }
         }
     }
@@ -51,9 +51,9 @@ final class AppViewModel {
              .connecting where isListening,
              .connected,
              .reconnecting:
-            return true
+            true
         default:
-            return false
+            false
         }
     }
 
@@ -117,7 +117,8 @@ final class AppViewModel {
                 isScreenShareEnabled = room.localParticipant.isScreenShareEnabled()
                 screenShareTrack = room.localParticipant.firstScreenShareVideoTrack
 
-                agentAudioTrack = room.agentParticipant?.firstAudioTrack
+                agentAudioTrack = room.agentParticipant?.audioTracks
+                    .first(where: { $0.source == .microphone })?.track as? AudioTrack
                 avatarCameraTrack = room.agentParticipant?.avatarWorker?.firstCameraVideoTrack
             }
         }
@@ -125,6 +126,7 @@ final class AppViewModel {
 
     private func observeDevices() {
         do {
+            try AudioManager.shared.set(microphoneMuteMode: .inputMixer) // don't play mute sound effect
             try AudioManager.shared.setRecordingAlwaysPreparedMode(true)
         } catch {
             errorHandler(error)
@@ -245,17 +247,28 @@ final class AppViewModel {
     }
 
     func toggleCamera() async {
+        let enable = !isCameraEnabled
         do {
+            // One video track at a time
+            if enable, isScreenShareEnabled {
+                try await room.localParticipant.setScreenShare(enabled: false)
+            }
+
             let device = try await CameraCapturer.captureDevices().first(where: { $0.uniqueID == selectedVideoDeviceID })
-            try await room.localParticipant.setCamera(enabled: !isCameraEnabled, captureOptions: CameraCaptureOptions(device: device))
+            try await room.localParticipant.setCamera(enabled: enable, captureOptions: CameraCaptureOptions(device: device))
         } catch {
             errorHandler(error)
         }
     }
 
     func toggleScreenShare() async {
+        let enable = !isScreenShareEnabled
         do {
-            try await room.localParticipant.setScreenShare(enabled: !isScreenShareEnabled)
+            // One video track at a time
+            if enable, isCameraEnabled {
+                try await room.localParticipant.setCamera(enabled: false)
+            }
+            try await room.localParticipant.setScreenShare(enabled: enable)
         } catch {
             errorHandler(error)
         }

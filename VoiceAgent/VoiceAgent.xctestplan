@@ -10,17 +10,17 @@
   ],
   "defaultOptions" : {
     "targetForVariableExpansion" : {
-      "containerPath" : "container:VoiceAssistant.xcodeproj",
+      "containerPath" : "container:VoiceAgent.xcodeproj",
       "identifier" : "B5B5E3B12D124AE00099C9BE",
-      "name" : "VoiceAssistant"
+      "name" : "VoiceAgent"
     }
   },
   "testTargets" : [
     {
       "target" : {
-        "containerPath" : "container:VoiceAssistant.xcodeproj",
+        "containerPath" : "container:VoiceAgent.xcodeproj",
         "identifier" : "ACC280262DEDDA1D0023C137",
-        "name" : "VoiceAssistantTests"
+        "name" : "VoiceAgentTests"
       }
     }
   ],

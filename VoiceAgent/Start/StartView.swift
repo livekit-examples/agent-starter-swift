@@ -8,17 +8,13 @@ struct StartView: View {
     @Namespace private var button
 
     var body: some View {
-        VStack(spacing: 4 * .grid) {
-            text()
-            Spacer().frame(height: 4 * .grid)
+        VStack(spacing: 8 * .grid) {
+            bars()
             connectButton()
-            #if targetEnvironment(simulator)
-            Spacer().frame(height: 4 * .grid)
-            simulator()
-            #endif
         }
         .padding(.horizontal, horizontalSizeClass == .regular ? 32 * .grid : 16 * .grid)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .safeAreaInset(edge: .bottom, content: tip)
         #if os(visionOS)
             .glassBackgroundEffect()
             .frame(maxWidth: 175 * .grid)
@@ -26,13 +22,34 @@ struct StartView: View {
     }
 
     @ViewBuilder
-    private func text() -> some View {
-        Image(systemName: "apple.terminal")
-            .font(.system(size: 56, weight: .thin))
-        Text("connect.tip")
-            .font(.system(size: 17))
-            .tint(.fg2) // for markdown links
-            .multilineTextAlignment(.center)
+    private func bars() -> some View {
+        HStack(spacing: .grid) {
+            ForEach(0 ..< 5, id: \.self) { index in
+                Rectangle()
+                    .fill(.fg0)
+                    .frame(width: 2 * .grid, height: barHeight(index))
+            }
+        }
+    }
+
+    private func barHeight(_ index: Int) -> CGFloat {
+        let heights: [CGFloat] = [2, 8, 12, 8, 2].map { $0 * .grid }
+        return heights[index]
+    }
+
+    @ViewBuilder
+    private func tip() -> some View {
+        VStack(spacing: 2 * .grid) {
+            #if targetEnvironment(simulator)
+            Text("connect.simulator")
+                .foregroundStyle(.fgModerate)
+            #endif
+            Text("connect.tip")
+                .foregroundStyle(.fg3)
+        }
+        .font(.system(size: 12))
+        .multilineTextAlignment(.center)
+        .padding(.horizontal, horizontalSizeClass == .regular ? 32 * .grid : 16 * .grid)
     }
 
     @ViewBuilder
@@ -62,14 +79,6 @@ struct StartView: View {
         #else
         .buttonStyle(ProminentButtonStyle())
         #endif
-    }
-
-    @ViewBuilder
-    private func simulator() -> some View {
-        Text("connect.simulator")
-            .font(.system(size: 17))
-            .foregroundStyle(.fgModerate)
-            .multilineTextAlignment(.center)
     }
 }
 

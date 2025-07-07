@@ -51,7 +51,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Start a call to chat with your voice agent. Need help getting set up? Check out the [Voice AI quickstart](https://docs.livekit.io/agents/start/voice-ai/)."
+            "value" : "Need help getting set up? Check out the [Voice AI quickstart](https://docs.livekit.io/agents/start/voice-ai/)."
           }
         }
       }

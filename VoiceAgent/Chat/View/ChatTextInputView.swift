@@ -10,7 +10,7 @@ struct ChatTextInputView: View {
     @State private var messageText = ""
 
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(alignment: .bottom, spacing: 12) {
             textField()
             sendButton()
         }
@@ -55,7 +55,11 @@ struct ChatTextInputView: View {
             Image(systemName: "arrow.up")
                 .frame(width: 8 * .grid, height: 8 * .grid)
         }
-        .padding(.trailing, 3 * .grid)
+        #if os(iOS)
+        .padding([.bottom, .trailing], 3 * .grid)
+        #else
+        .padding([.bottom, .trailing], 2 * .grid)
+        #endif
         .disabled(messageText.isEmpty)
         #if os(visionOS)
             .buttonStyle(.plain)

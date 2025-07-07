@@ -1,5 +1,5 @@
 import Testing
-@testable import VoiceAssistant
+@testable import VoiceAgent
 
 @MainActor
 struct ChatViewModelTests {

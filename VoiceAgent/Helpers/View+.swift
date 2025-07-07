@@ -38,10 +38,10 @@ struct Shimerring: ViewModifier {
                         .black,
                         .black.opacity(0.4),
                     ],
-                    startPoint: isShimmering ? UnitPoint(x: -1, y: 0) : UnitPoint(x: 1, y: 0),
-                    endPoint: isShimmering ? UnitPoint(x: 0, y: 0) : UnitPoint(x: 2, y: 0)
+                    startPoint: isShimmering ? UnitPoint(x: 1, y: 0) : UnitPoint(x: -1, y: 0),
+                    endPoint: isShimmering ? UnitPoint(x: 2, y: 0) : UnitPoint(x: 0, y: 0)
                 )
-                .animation(.linear(duration: 5).repeatForever(autoreverses: true), value: isShimmering)
+                .animation(.linear(duration: 2).repeatForever(autoreverses: false), value: isShimmering)
             )
             .onAppear {
                 isShimmering = true
