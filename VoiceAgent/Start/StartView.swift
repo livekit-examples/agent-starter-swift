@@ -49,7 +49,8 @@ struct StartView: View {
         }
         .font(.system(size: 12))
         .multilineTextAlignment(.center)
-        .padding(.horizontal, horizontalSizeClass == .regular ? 32 * .grid : 16 * .grid)
+        .safeAreaPadding(.horizontal, horizontalSizeClass == .regular ? 32 * .grid : 16 * .grid)
+        .safeAreaPadding(.vertical)
     }
 
     @ViewBuilder
