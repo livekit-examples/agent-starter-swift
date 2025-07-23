@@ -37,12 +37,12 @@ struct TextInteractionView: View {
         HStack {
             Spacer()
             AgentParticipantView()
-                .frame(maxWidth: 25 * .grid)
+                .frame(maxWidth: viewModel.avatarCameraTrack != nil ? 50 * .grid : 25 * .grid)
             ScreenShareView()
             LocalParticipantView()
             Spacer()
         }
-        .frame(height: viewModel.isCameraEnabled || viewModel.isScreenShareEnabled ? 50 * .grid : 25 * .grid)
+        .frame(height: viewModel.isCameraEnabled || viewModel.isScreenShareEnabled || viewModel.avatarCameraTrack != nil ? 50 * .grid : 25 * .grid)
         .safeAreaPadding()
     }
 }
