@@ -22,7 +22,7 @@ lk app create --template agent-starter-swift --sandbox <token_server_sandbox_id>
 
 Built and run the app from Xcode by opening `VoiceAgent.xcodeproj`. You may need to adjust your app signing settings to run the app on your device.
 
-You'll also need an agent to speak with. Try our [voice AI quickstart](https://docs.livekit.io/agents/start/voice-ai) for the easiest way to get started.
+You'll also need an agent to speak with. Try our starter agent for [Python](https://github.com/livekit-examples/agent-starter-python), [Node.js](https://github.com/livekit-examples/agent-starter-node), or [create your own from scratch](https://docs.livekit.io/agents/start/voice-ai/).
 
 > [!NOTE]
 > To setup without the LiveKit CLI, clone the repository and then either create a `VoiceAgent/.env.xcconfig` with a `LIVEKIT_SANDBOX_ID` (if using a [Sandbox Token Server](https://cloud.livekit.io/projects/p_/sandbox/templates/token-server)), or open `TokenService.swift` and add your [manually generated](#token-generation) URL and token.
