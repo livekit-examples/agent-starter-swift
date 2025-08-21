@@ -11,6 +11,9 @@ struct VoiceAgentApp: App {
             AppView()
                 .environment(viewModel)
         }
+        #if os(macOS)
+        .defaultSize(width: 900, height: 900)
+        #endif
         #if os(visionOS)
         .windowStyle(.plain)
         .windowResizability(.contentMinSize)
@@ -28,5 +31,5 @@ struct AgentFeatures: OptionSet {
     static let text = Self(rawValue: 1 << 1)
     static let video = Self(rawValue: 1 << 2)
 
-    static let current: Self = [.voice, .text]
+    static let current: Self = [.voice, .text, .video]
 }
