@@ -4,7 +4,8 @@ import LiveKitComponents
 /// or the audio visualizer (if available).
 /// - Note: If both are unavailable, the view will show a placeholder visualizer.
 struct AgentParticipantView: View {
-    @Environment(AppViewModel.self) private var viewModel
+    @LKConversation private var conversation
+    @LKAgent private var agent
     @Environment(\.namespace) private var namespace
 
     /// Reveals the avatar camera view when true.
@@ -12,11 +13,11 @@ struct AgentParticipantView: View {
 
     var body: some View {
         ZStack {
-            if let avatarCameraTrack = viewModel.avatarCameraTrack {
-                SwiftUIVideoView(avatarCameraTrack)
+            if let avatarVideoTrack = agent?.avatarVideoTrack {
+                SwiftUIVideoView(avatarVideoTrack)
                     .clipShape(RoundedRectangle(cornerRadius: .cornerRadiusPerPlatform))
-                    .aspectRatio(avatarCameraTrack.aspectRatio, contentMode: .fit)
-                    .padding(.horizontal, avatarCameraTrack.aspectRatio == 1 ? 4 * .grid : .zero)
+                    .aspectRatio(avatarVideoTrack.aspectRatio, contentMode: .fit)
+                    .padding(.horizontal, agent?.avatarVideoTrack?.aspectRatio == 1 ? 4 * .grid : .zero)
                     .shadow(radius: 20, y: 10)
                     .mask(
                         GeometryReader { proxy in
@@ -31,15 +32,15 @@ struct AgentParticipantView: View {
                     .onAppear {
                         videoTransition = true
                     }
-            } else if let agentAudioTrack = viewModel.agentAudioTrack {
-                BarAudioVisualizer(audioTrack: agentAudioTrack,
-                                   agentState: viewModel.agent?.agentState ?? .listening,
+            } else if let audioTrack = agent?.audioTrack {
+                BarAudioVisualizer(audioTrack: audioTrack,
+                                   agentState: agent?.state ?? .listening,
                                    barCount: 5,
                                    barSpacingFactor: 0.05,
                                    barMinOpacity: 0.1)
                     .frame(maxWidth: 75 * .grid, maxHeight: 48 * .grid)
                     .transition(.opacity)
-            } else if viewModel.isInteractive {
+            } else if conversation.isReady {
                 BarAudioVisualizer(audioTrack: nil,
                                    agentState: .listening,
                                    barCount: 1,
@@ -48,7 +49,20 @@ struct AgentParticipantView: View {
                     .transition(.opacity)
             }
         }
-        .animation(.snappy, value: viewModel.agentAudioTrack?.id)
+        .animation(.snappy, value: agent?.audioTrack?.id)
         .matchedGeometryEffect(id: "agent", in: namespace!)
+    }
+}
+
+extension BarAudioVisualizer {
+    init(agent: Agent?,
+         barColor: Color = .primary,
+         barCount: Int = 5,
+         barCornerRadius: CGFloat = 100,
+         barSpacingFactor: CGFloat = 0.015,
+         barMinOpacity: CGFloat = 0.16,
+         isCentered: Bool = true)
+    {
+        self.init(audioTrack: agent?.audioTrack, agentState: agent?.state ?? .listening, barColor: barColor, barCount: barCount, barCornerRadius: barCornerRadius, barSpacingFactor: barSpacingFactor, barMinOpacity: barMinOpacity, isCentered: isCentered)
     }
 }

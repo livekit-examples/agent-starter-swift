@@ -2,11 +2,11 @@ import LiveKitComponents
 
 /// A view that shows the screen share preview.
 struct ScreenShareView: View {
-    @Environment(AppViewModel.self) private var viewModel
+    @LKLocalMedia private var localMedia
     @Environment(\.namespace) private var namespace
 
     var body: some View {
-        if let screenShareTrack = viewModel.screenShareTrack {
+        if let screenShareTrack = localMedia.screenShareTrack {
             SwiftUIVideoView(screenShareTrack)
                 .clipShape(RoundedRectangle(cornerRadius: .cornerRadiusPerPlatform))
                 .aspectRatio(screenShareTrack.aspectRatio, contentMode: .fit)

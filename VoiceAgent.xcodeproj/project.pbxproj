@@ -23,13 +23,6 @@
 			remoteGlobalIDString = ACAEBA572DE6EE970072E93E;
 			remoteInfo = BroadcastExtension;
 		};
-		ACC2802B2DEDDA1D0023C137 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B5B5E3AA2D124AE00099C9BE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B5B5E3B12D124AE00099C9BE;
-			remoteInfo = VoiceAgent;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,7 +42,6 @@
 /* Begin PBXFileReference section */
 		ACAEBA582DE6EE970072E93E /* BroadcastExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BroadcastExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACAEBA5A2DE6EE970072E93E /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
-		ACC280272DEDDA1D0023C137 /* VoiceAgentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceAgentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B5E3B22D124AE00099C9BE /* VoiceAgent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceAgent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -82,11 +74,6 @@
 			path = BroadcastExtension;
 			sourceTree = "<group>";
 		};
-		ACC280282DEDDA1D0023C137 /* VoiceAgentTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = VoiceAgentTests;
-			sourceTree = "<group>";
-		};
 		B5B5E3B42D124AE00099C9BE /* VoiceAgent */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -104,13 +91,6 @@
 			files = (
 				ACAEBA5B2DE6EE970072E93E /* ReplayKit.framework in Frameworks */,
 				ACAEBA692DE6EF4B0072E93E /* LiveKit in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		ACC280242DEDDA1D0023C137 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,7 +120,6 @@
 			children = (
 				B5B5E3B42D124AE00099C9BE /* VoiceAgent */,
 				ACAEBA5C2DE6EE970072E93E /* BroadcastExtension */,
-				ACC280282DEDDA1D0023C137 /* VoiceAgentTests */,
 				ACAEBA592DE6EE970072E93E /* Frameworks */,
 				B5B5E3B32D124AE00099C9BE /* Products */,
 			);
@@ -151,7 +130,6 @@
 			children = (
 				B5B5E3B22D124AE00099C9BE /* VoiceAgent.app */,
 				ACAEBA582DE6EE970072E93E /* BroadcastExtension.appex */,
-				ACC280272DEDDA1D0023C137 /* VoiceAgentTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -181,29 +159,6 @@
 			productName = BroadcastExtension;
 			productReference = ACAEBA582DE6EE970072E93E /* BroadcastExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
-		};
-		ACC280262DEDDA1D0023C137 /* VoiceAgentTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = ACC2802F2DEDDA1D0023C137 /* Build configuration list for PBXNativeTarget "VoiceAgentTests" */;
-			buildPhases = (
-				ACC280232DEDDA1D0023C137 /* Sources */,
-				ACC280242DEDDA1D0023C137 /* Frameworks */,
-				ACC280252DEDDA1D0023C137 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				ACC2802C2DEDDA1D0023C137 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				ACC280282DEDDA1D0023C137 /* VoiceAgentTests */,
-			);
-			name = VoiceAgentTests;
-			packageProductDependencies = (
-			);
-			productName = VoiceAgentTests;
-			productReference = ACC280272DEDDA1D0023C137 /* VoiceAgentTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		B5B5E3B12D124AE00099C9BE /* VoiceAgent */ = {
 			isa = PBXNativeTarget;
@@ -245,10 +200,6 @@
 					ACAEBA572DE6EE970072E93E = {
 						CreatedOnToolsVersion = 16.3;
 					};
-					ACC280262DEDDA1D0023C137 = {
-						CreatedOnToolsVersion = 16.3;
-						TestTargetID = B5B5E3B12D124AE00099C9BE;
-					};
 					B5B5E3B12D124AE00099C9BE = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -274,7 +225,6 @@
 			projectRoot = "";
 			targets = (
 				B5B5E3B12D124AE00099C9BE /* VoiceAgent */,
-				ACC280262DEDDA1D0023C137 /* VoiceAgentTests */,
 				ACAEBA572DE6EE970072E93E /* BroadcastExtension */,
 			);
 		};
@@ -282,13 +232,6 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		ACAEBA562DE6EE970072E93E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		ACC280252DEDDA1D0023C137 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -306,13 +249,6 @@
 
 /* Begin PBXSourcesBuildPhase section */
 		ACAEBA542DE6EE970072E93E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		ACC280232DEDDA1D0023C137 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -337,11 +273,6 @@
 			);
 			target = ACAEBA572DE6EE970072E93E /* BroadcastExtension */;
 			targetProxy = ACAEBA602DE6EE970072E93E /* PBXContainerItemProxy */;
-		};
-		ACC2802C2DEDDA1D0023C137 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B5B5E3B12D124AE00099C9BE /* VoiceAgent */;
-			targetProxy = ACC2802B2DEDDA1D0023C137 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -407,58 +338,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 				VALIDATE_PRODUCT = YES;
-				XROS_DEPLOYMENT_TARGET = 2.0;
-			};
-			name = Release;
-		};
-		ACC2802D2DEDDA1D0023C137 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 76TVFCUKK7;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.livekit.VoiceAgentTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VoiceAgent.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VoiceAgent";
-				XROS_DEPLOYMENT_TARGET = 2.0;
-			};
-			name = Debug;
-		};
-		ACC2802E2DEDDA1D0023C137 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 76TVFCUKK7;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.livekit.VoiceAgentTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VoiceAgent.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VoiceAgent";
 				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
@@ -685,15 +564,6 @@
 			buildConfigurations = (
 				ACAEBA642DE6EE970072E93E /* Debug */,
 				ACAEBA652DE6EE970072E93E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		ACC2802F2DEDDA1D0023C137 /* Build configuration list for PBXNativeTarget "VoiceAgentTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				ACC2802D2DEDDA1D0023C137 /* Debug */,
-				ACC2802E2DEDDA1D0023C137 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

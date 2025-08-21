@@ -4,17 +4,17 @@ import SwiftUI
 #if os(macOS)
 /// A platform-specific view that shows a list of available video devices.
 struct VideoDeviceSelector: View {
-    @Environment(AppViewModel.self) private var viewModel
+    @EnvironmentObject private var devices: DeviceSwitcher
 
     var body: some View {
         Menu {
-            ForEach(viewModel.videoDevices, id: \.uniqueID) { device in
+            ForEach(devices.videoDevices, id: \.uniqueID) { device in
                 AsyncButton {
-                    await viewModel.select(videoDevice: device)
+                    await devices.select(videoDevice: device)
                 } label: {
                     HStack {
                         Text(device.localizedName)
-                        if device.uniqueID == viewModel.selectedVideoDeviceID {
+                        if device.uniqueID == devices.selectedVideoDeviceID {
                             Image(systemName: "checkmark")
                         }
                     }

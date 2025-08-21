@@ -1,38 +1,22 @@
+import LiveKit
 import SwiftUI
 
-/// A multiplatform view that shows the message feed.
 struct ChatView: View {
-    @Environment(ChatViewModel.self) private var viewModel
-
     var body: some View {
-        ScrollViewReader { scrollView in
-            ScrollView {
-                LazyVStack {
-                    ForEach(viewModel.messages.values.reversed(), content: message)
-                }
-            }
-            .onChange(of: viewModel.messages.count) {
-                scrollView.scrollTo(viewModel.messages.keys.last)
-            }
-            .upsideDown()
+        ChatScrollView(messageBuilder: message)
             .padding(.horizontal)
-            .scrollIndicators(.never)
-            .animation(.default, value: viewModel.messages)
-        }
     }
 
     @ViewBuilder
     private func message(_ message: ReceivedMessage) -> some View {
         ZStack {
             switch message.content {
-            case let .userTranscript(text):
+            case let .userTranscript(text), let .userInput(text):
                 userTranscript(text)
             case let .agentTranscript(text):
                 agentTranscript(text)
             }
         }
-        .upsideDown()
-        .id(message.id) // for the ScrollViewReader to work
     }
 
     @ViewBuilder
