@@ -3,17 +3,17 @@ import SwiftUI
 #if os(macOS)
 /// A platform-specific view that shows a list of available audio devices.
 struct AudioDeviceSelector: View {
-    @Environment(AppViewModel.self) private var viewModel
+    @EnvironmentObject private var devices: DeviceSwitcher
 
     var body: some View {
         Menu {
-            ForEach(viewModel.audioDevices, id: \.deviceId) { device in
+            ForEach(devices.audioDevices, id: \.deviceId) { device in
                 Button {
-                    viewModel.select(audioDevice: device)
+                    devices.select(audioDevice: device)
                 } label: {
                     HStack {
                         Text(device.name)
-                        if device.deviceId == viewModel.selectedAudioDeviceID {
+                        if device.deviceId == devices.selectedAudioDeviceID {
                             Image(systemName: "checkmark")
                         }
                     }

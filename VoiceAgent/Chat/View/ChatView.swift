@@ -2,22 +2,22 @@ import SwiftUI
 
 /// A multiplatform view that shows the message feed.
 struct ChatView: View {
-    @Environment(ChatViewModel.self) private var viewModel
+    @EnvironmentObject private var session: AgentSession
 
     var body: some View {
         ScrollViewReader { scrollView in
             ScrollView {
                 LazyVStack {
-                    ForEach(viewModel.messages.values.reversed(), content: message)
+                    ForEach(session.messages.values.reversed(), content: message)
                 }
             }
-            .onChange(of: viewModel.messages.count) {
-                scrollView.scrollTo(viewModel.messages.keys.last)
+            .onChange(of: session.messages.count) {
+                scrollView.scrollTo(session.messages.keys.last)
             }
             .upsideDown()
             .padding(.horizontal)
             .scrollIndicators(.never)
-            .animation(.default, value: viewModel.messages)
+            .animation(.default, value: session.messages)
         }
     }
 

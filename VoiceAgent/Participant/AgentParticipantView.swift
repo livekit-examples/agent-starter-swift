@@ -4,7 +4,7 @@ import LiveKitComponents
 /// or the audio visualizer (if available).
 /// - Note: If both are unavailable, the view will show a placeholder visualizer.
 struct AgentParticipantView: View {
-    @Environment(AppViewModel.self) private var viewModel
+    @EnvironmentObject private var session: AgentSession
     @Environment(\.namespace) private var namespace
 
     /// Reveals the avatar camera view when true.
@@ -12,7 +12,7 @@ struct AgentParticipantView: View {
 
     var body: some View {
         ZStack {
-            if let avatarCameraTrack = viewModel.avatarCameraTrack {
+            if let avatarCameraTrack = session.avatarCameraTrack {
                 SwiftUIVideoView(avatarCameraTrack)
                     .clipShape(RoundedRectangle(cornerRadius: .cornerRadiusPerPlatform))
                     .aspectRatio(avatarCameraTrack.aspectRatio, contentMode: .fit)
@@ -30,15 +30,15 @@ struct AgentParticipantView: View {
                     .onAppear {
                         videoTransition = true
                     }
-            } else if let agentAudioTrack = viewModel.agentAudioTrack {
+            } else if let agentAudioTrack = session.agentAudioTrack {
                 BarAudioVisualizer(audioTrack: agentAudioTrack,
-                                   agentState: viewModel.agent?.agentState ?? .listening,
+                                   agentState: session.agent?.agentState ?? .listening,
                                    barCount: 5,
                                    barSpacingFactor: 0.05,
                                    barMinOpacity: 0.1)
                     .frame(maxWidth: 75 * .grid, maxHeight: 48 * .grid)
                     .transition(.opacity)
-            } else if viewModel.isInteractive {
+            } else if session.isAvailable {
                 BarAudioVisualizer(audioTrack: nil,
                                    agentState: .listening,
                                    barCount: 1,
@@ -47,7 +47,7 @@ struct AgentParticipantView: View {
                     .transition(.opacity)
             }
         }
-        .animation(.snappy, value: viewModel.agentAudioTrack?.id)
+        .animation(.snappy, value: session.agentAudioTrack?.id)
         .matchedGeometryEffect(id: "agent", in: namespace!)
     }
 }

@@ -7,7 +7,7 @@ import LiveKit
 /// It also serves as the loopback for the local messages,
 /// so that they can be displayed in the message feed
 /// without relying on the agent-side transcription.
-actor LocalMessageSender: MessageSender, MessageReceiver {
+actor TextMessageSender: MessageSender, MessageReceiver {
     private let room: Room
     private let topic: String
 

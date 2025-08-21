@@ -2,7 +2,7 @@ import SwiftUI
 
 /// A multiplatform view that shows the chat input text field and send button.
 struct ChatTextInputView: View {
-    @Environment(ChatViewModel.self) private var chatViewModel
+    @EnvironmentObject private var session: AgentSession
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @FocusState.Binding var keyboardFocus: Bool
@@ -74,12 +74,6 @@ struct ChatTextInputView: View {
             messageText = ""
             keyboardFocus = false
         }
-        await chatViewModel.sendMessage(messageText)
+        await session.send(message: SentMessage(id: UUID().uuidString, timestamp: Date(), content: .userText(messageText)))
     }
-}
-
-#Preview {
-    @FocusState var focus
-    ChatTextInputView(keyboardFocus: $focus)
-        .environment(ChatViewModel())
 }

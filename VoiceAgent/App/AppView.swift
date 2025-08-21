@@ -1,17 +1,15 @@
 import SwiftUI
 
 struct AppView: View {
-    @Environment(AppViewModel.self) private var viewModel
-    @State private var chatViewModel = ChatViewModel()
+    @EnvironmentObject private var session: AgentSession
+    @State private var chat: Bool = false
 
-    @State private var error: Error?
     @FocusState private var keyboardFocus: Bool
-
     @Namespace private var namespace
 
     var body: some View {
         ZStack(alignment: .top) {
-            if viewModel.isInteractive {
+            if session.isAvailable {
                 interactions()
             } else {
                 start()
@@ -22,34 +20,31 @@ struct AppView: View {
         .environment(\.namespace, namespace)
         #if os(visionOS)
             .ornament(attachmentAnchor: .scene(.bottom)) {
-                if viewModel.isInteractive {
-                    ControlBar()
+                if session.isAvailable {
+                    ControlBar(chat: $chat)
                         .glassBackgroundEffect()
                 }
             }
-            .alert("warning.reconnecting", isPresented: .constant(viewModel.connectionState == .reconnecting)) {}
-            .alert(error?.localizedDescription ?? "error.title", isPresented: .constant(error != nil)) {
-                Button("error.ok") { error = nil }
+            .alert("warning.reconnecting", isPresented: .constant(session.connectionState == .reconnecting)) {}
+            .alert(session.error?.localizedDescription ?? "error.title", isPresented: .constant(session.error != nil)) {
+                Button("error.ok") { session.resetError() }
             }
         #else
             .safeAreaInset(edge: .bottom) {
-                if viewModel.isInteractive, !keyboardFocus {
-                    ControlBar()
+                if session.isAvailable, !keyboardFocus {
+                    ControlBar(chat: $chat)
                         .transition(.asymmetric(insertion: .move(edge: .bottom).combined(with: .opacity), removal: .opacity))
                 }
             }
         #endif
             .background(.bg1)
-            .animation(.default, value: viewModel.isInteractive)
-            .animation(.default, value: viewModel.interactionMode)
-            .animation(.default, value: viewModel.isCameraEnabled)
-            .animation(.default, value: viewModel.isScreenShareEnabled)
-            .animation(.default, value: error?.localizedDescription)
-            .onAppear {
-                Dependencies.shared.errorHandler = { error = $0 }
-            }
+            .animation(.default, value: chat)
+            .animation(.default, value: session.isAvailable)
+            .animation(.default, value: session.isCameraEnabled)
+            .animation(.default, value: session.isScreenShareEnabled)
+            .animation(.default, value: session.error?.localizedDescription)
         #if os(iOS)
-            .sensoryFeedback(.impact, trigger: viewModel.isListening)
+            .sensoryFeedback(.impact, trigger: session.isListening)
         #endif
     }
 
@@ -61,18 +56,15 @@ struct AppView: View {
     @ViewBuilder
     private func interactions() -> some View {
         #if os(visionOS)
-        VisionInteractionView(keyboardFocus: $keyboardFocus)
-            .environment(chatViewModel)
+        VisionInteractionView(chat: chat, keyboardFocus: $keyboardFocus)
             .overlay(alignment: .bottom) {
                 agentListening()
                     .padding(16 * .grid)
             }
         #else
-        switch viewModel.interactionMode {
-        case .text:
+        if chat {
             TextInteractionView(keyboardFocus: $keyboardFocus)
-                .environment(chatViewModel)
-        case .voice:
+        } else {
             VoiceInteractionView()
                 .overlay(alignment: .bottom) {
                     agentListening()
@@ -85,12 +77,12 @@ struct AppView: View {
     @ViewBuilder
     private func errors() -> some View {
         #if !os(visionOS)
-        if case .reconnecting = viewModel.connectionState {
+        if case .reconnecting = session.connectionState {
             WarningView(warning: "warning.reconnecting")
         }
 
-        if let error {
-            ErrorView(error: error) { self.error = nil }
+        if let error = session.error {
+            ErrorView(error: error) { session.resetError() }
         }
         #endif
     }
@@ -98,14 +90,14 @@ struct AppView: View {
     @ViewBuilder
     private func agentListening() -> some View {
         ZStack {
-            if chatViewModel.messages.isEmpty,
-               !viewModel.isCameraEnabled,
-               !viewModel.isScreenShareEnabled
+            if session.messages.isEmpty,
+               !session.isCameraEnabled,
+               !session.isScreenShareEnabled
             {
                 AgentListeningView()
             }
         }
-        .animation(.default, value: chatViewModel.messages.isEmpty)
+        .animation(.default, value: session.messages.isEmpty)
     }
 }
 
