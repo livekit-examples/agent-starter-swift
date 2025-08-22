@@ -6,20 +6,19 @@ struct ChatView: View {
 
     var body: some View {
         ScrollViewReader { scrollView in
-            List {
-                ForEach(viewModel.messages.values.reversed(), content: message)
-            }
-            .onChange(of: viewModel.messages.count) {
-                withAnimation(.smooth) {
-                    scrollView.scrollTo(viewModel.messages.keys.last)
+            ScrollView {
+                LazyVStack {
+                    ForEach(viewModel.messages.values.reversed(), content: message)
                 }
             }
+            .onChange(of: viewModel.messages.count) {
+                scrollView.scrollTo(viewModel.messages.keys.last)
+            }
+            .upsideDown()
+            .padding(.horizontal)
+            .scrollIndicators(.never)
+            .animation(.default, value: viewModel.messages)
         }
-        .upsideDown()
-        .listStyle(.plain)
-        .scrollIndicators(.never)
-        .scrollContentBackground(.hidden)
-        .animation(.default, value: viewModel.messages)
     }
 
     @ViewBuilder
@@ -33,8 +32,6 @@ struct ChatView: View {
             }
         }
         .upsideDown()
-        .listRowBackground(EmptyView())
-        .listRowSeparator(.hidden)
         .id(message.id) // for the ScrollViewReader to work
     }
 
