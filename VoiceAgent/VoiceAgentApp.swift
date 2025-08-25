@@ -11,6 +11,9 @@ struct VoiceAgentApp: App {
             AppView()
                 .environment(viewModel)
         }
+        #if os(macOS)
+        .defaultSize(width: 900, height: 900)
+        #endif
         #if os(visionOS)
         .windowStyle(.plain)
         .windowResizability(.contentMinSize)
