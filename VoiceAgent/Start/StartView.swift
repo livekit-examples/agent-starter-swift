@@ -2,7 +2,7 @@ import SwiftUI
 
 /// The initial view that is shown when the app is not connected to the server.
 struct StartView: View {
-    @Environment(AppViewModel.self) private var viewModel
+    @EnvironmentObject private var session: AgentSession
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @Namespace private var button
@@ -55,7 +55,9 @@ struct StartView: View {
 
     @ViewBuilder
     private func connectButton() -> some View {
-        AsyncButton(action: viewModel.connect) {
+        AsyncButton {
+            await session.connect()
+        } label: {
             HStack {
                 Spacer()
                 Text("connect.start")
@@ -85,5 +87,4 @@ struct StartView: View {
 
 #Preview {
     StartView()
-        .environment(AppViewModel())
 }
