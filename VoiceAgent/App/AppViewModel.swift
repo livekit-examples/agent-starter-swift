@@ -94,8 +94,17 @@ final class AppViewModel {
 
     // MARK: - Initialization
 
+    private let remoteAudioRenderer = AudioPlayerRenderer()
+
     init(agentFeatures: AgentFeatures = .current) {
         self.agentFeatures = agentFeatures
+
+        try! AudioManager.shared.setManualRenderingMode(true)
+        AudioManager.shared.add(remoteAudioRenderer: remoteAudioRenderer)
+
+        Task {
+            try await remoteAudioRenderer.start()
+        }
 
         observeRoom()
         observeDevices()
