@@ -125,22 +125,18 @@ final class AppViewModel {
     }
 
     private func observeDevices() {
-        do {
-            try AudioManager.shared.set(microphoneMuteMode: .inputMixer) // don't play mute sound effect
-            try AudioManager.shared.setRecordingAlwaysPreparedMode(true)
-        } catch {
-            errorHandler(error)
-        }
-
-        AudioManager.shared.onDeviceUpdate = { [weak self] _ in
-            Task { @MainActor in
-                self?.audioDevices = AudioManager.shared.inputDevices
-                self?.selectedAudioDeviceID = AudioManager.shared.defaultInputDevice.deviceId
-            }
-        }
-
         Task {
             do {
+                try AudioManager.shared.set(microphoneMuteMode: .inputMixer) // don't play mute sound effect
+                try await AudioManager.shared.setRecordingAlwaysPreparedMode(true)
+
+                AudioManager.shared.onDeviceUpdate = { [weak self] _ in
+                    Task { @MainActor in
+                        self?.audioDevices = AudioManager.shared.inputDevices
+                        self?.selectedAudioDeviceID = AudioManager.shared.defaultInputDevice.deviceId
+                    }
+                }
+
                 canSwitchCamera = try await CameraCapturer.canSwitchPosition()
                 videoDevices = try await CameraCapturer.captureDevices()
                 selectedVideoDeviceID = videoDevices.first?.uniqueID
