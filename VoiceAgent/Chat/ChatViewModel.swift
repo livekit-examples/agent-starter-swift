@@ -1,4 +1,3 @@
-import AsyncAlgorithms
 import Collections
 import Foundation
 import LiveKit
@@ -11,12 +10,6 @@ import Observation
 @MainActor
 @Observable
 final class ChatViewModel {
-    // MARK: - Constants
-
-    private enum Constants {
-        static let throttle: Duration = .milliseconds(100)
-    }
-
     // MARK: - State
 
     private(set) var messages: OrderedDictionary<ReceivedMessage.ID, ReceivedMessage> = [:]
@@ -45,10 +38,7 @@ final class ChatViewModel {
         for messageReceiver in messageReceivers {
             Task { [weak self] in
                 do {
-                    for await message in try await messageReceiver
-                        .messages()
-                        ._throttle(for: Constants.throttle)
-                    {
+                    for await message in try await messageReceiver.messages() {
                         guard let self else { return }
                         messages.updateValue(message, forKey: message.id)
                     }

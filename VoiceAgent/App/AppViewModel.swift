@@ -14,7 +14,7 @@ final class AppViewModel {
     // MARK: - Constants
 
     private enum Constants {
-        static let agentConnectionTimeout: TimeInterval = 10
+        static let agentConnectionTimeout: TimeInterval = 20
     }
 
     // MARK: - Errors
