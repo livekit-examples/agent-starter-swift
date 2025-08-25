@@ -122,7 +122,11 @@ final class AgentSession: ObservableObject {
 
         do {
             if preConnectAudio {
-                try await room.withPreConnectAudio { try await connection() }
+                try await room.withPreConnectAudio(timeout: waitForAgent) {
+                    await MainActor.run { self.isListening = true }
+                    try await connection()
+                    await MainActor.run { self.isListening = false }
+                }
             } else {
                 try await connection()
             }

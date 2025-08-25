@@ -44,7 +44,7 @@ struct AppView: View {
             .animation(.default, value: session.isScreenShareEnabled)
             .animation(.default, value: session.error?.localizedDescription)
         #if os(iOS)
-            .sensoryFeedback(.impact, trigger: session.isListening)
+            .sensoryFeedback(.impact, trigger: session.isListening) { !$0 && $1 }
         #endif
     }
 
