@@ -1,10 +1,9 @@
 import SwiftUI
 
 struct ChatView: View {
-    @EnvironmentObject private var session: AgentSession
-
     var body: some View {
         ChatScrollView(messageBuilder: message)
+            .padding(.horizontal)
     }
 
     @ViewBuilder

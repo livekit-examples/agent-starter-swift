@@ -51,6 +51,9 @@ struct AppView: View {
     @ViewBuilder
     private func start() -> some View {
         StartView()
+            .onAppear {
+                chat = false
+            }
     }
 
     @ViewBuilder

@@ -1,16 +1,5 @@
 import SwiftUI
 
-/// A view modifier that flips the view upside down.
-/// It may be used to create e.g. an inverted List.
-/// - SeeAlso: ``ChatView``
-struct UpsideDown: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .rotationEffect(.radians(Double.pi))
-            .scaleEffect(x: -1, y: 1, anchor: .center)
-    }
-}
-
 /// A view modifier that slightly blurs the top of the view.
 struct BlurredTop: ViewModifier {
     func body(content: Content) -> some View {
@@ -50,11 +39,6 @@ struct Shimerring: ViewModifier {
 }
 
 extension View {
-    /// Flips the view upside down.
-    func upsideDown() -> some View {
-        modifier(UpsideDown())
-    }
-
     /// Blurs the top of the view.
     func blurredTop() -> some View {
         modifier(BlurredTop())

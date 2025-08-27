@@ -116,7 +116,7 @@ final class AgentSession: ObservableObject {
         }
 
         let connection = { @Sendable in
-            let (server, token) = try! await self.credentials()
+            let (server, token) = try await self.credentials()
             try await self.room.connect(url: server, token: token, connectOptions: options, roomOptions: roomOptions)
         }
 

@@ -12,10 +12,13 @@ enum Sandbox {
     struct Connection: Decodable {
         let serverUrl: String
         let participantToken: String
+        let roomName: String
+        let participantName: String
     }
 
     private static let url: String = "https://cloud-api.livekit.io/api/sandbox/connection-details"
 
+    // TODO: These are not respected anyway (names)
     static func getConnection(id: String, roomName: String, participantName: String) async throws -> Connection {
         var urlComponents = URLComponents(string: url)!
         urlComponents.queryItems = [
