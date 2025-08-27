@@ -2,7 +2,7 @@ import Testing
 @testable import VoiceAgent
 
 @MainActor
-struct ChatViewModelTests {
+struct AgentSessionTests {
     @Test func multipleReceivers() async throws {
         let receiver1 = MockMessageReceiver()
         let receiver2 = MockMessageReceiver()
@@ -18,8 +18,7 @@ struct ChatViewModelTests {
             content: .agentTranscript("Hi there")
         )
 
-        Dependencies.shared.messageReceivers = [receiver1, receiver2]
-        let viewModel = ChatViewModel()
+        let session = AgentSession(environment: .sandbox(id: ""), receivers: [receiver1, receiver2])
 
         try await Task.sleep(for: .milliseconds(100))
         await receiver1.postMessage(message1)
@@ -27,11 +26,11 @@ struct ChatViewModelTests {
         await receiver2.postMessage(message2)
         try await Task.sleep(for: .milliseconds(100))
 
-        #expect(viewModel.messages.count == 2)
-        #expect(viewModel.messages["1"]?.content == .userTranscript("Hello"))
-        #expect(viewModel.messages["2"]?.content == .agentTranscript("Hi there"))
+        #expect(session.messages.count == 2)
+        #expect(session.messages["1"]?.content == .userTranscript("Hello"))
+        #expect(session.messages["2"]?.content == .agentTranscript("Hi there"))
 
-        let orderedMessages = Array(viewModel.messages.values)
+        let orderedMessages = session.getMessageHistory()
         #expect(orderedMessages.count == 2)
         #expect(orderedMessages[0].id == "1")
         #expect(orderedMessages[1].id == "2")
