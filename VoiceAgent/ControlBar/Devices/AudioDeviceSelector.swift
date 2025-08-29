@@ -23,6 +23,7 @@ struct AudioDeviceSelector: View {
             Image(systemName: "chevron.down")
                 .frame(height: 11 * .grid)
                 .font(.system(size: 12, weight: .semibold))
+                .contentShape(Rectangle())
         }
     }
 }

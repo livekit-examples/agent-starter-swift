@@ -77,7 +77,7 @@ struct ControlBar: View {
 
     @ViewBuilder
     private func audioControls() -> some View {
-        HStack(spacing: 2 * .grid) {
+        HStack(spacing: .zero) {
             Spacer()
             AsyncButton(action: viewModel.toggleMicrophone) {
                 HStack(spacing: .grid) {
@@ -89,6 +89,8 @@ struct ControlBar: View {
                         .id(viewModel.audioTrack?.id)
                 }
                 .frame(height: Constants.buttonHeight)
+                .padding(.horizontal, 2 * .grid)
+                .contentShape(Rectangle())
             }
             #if os(macOS)
             separator()
@@ -102,12 +104,14 @@ struct ControlBar: View {
 
     @ViewBuilder
     private func videoControls() -> some View {
-        HStack(spacing: 2 * .grid) {
+        HStack(spacing: .zero) {
             Spacer()
             AsyncButton(action: viewModel.toggleCamera) {
                 Image(systemName: viewModel.isCameraEnabled ? "video.fill" : "video.slash.fill")
                     .transition(.symbolEffect)
                     .frame(height: Constants.buttonHeight)
+                    .padding(.horizontal, 2 * .grid)
+                    .contentShape(Rectangle())
             }
             #if os(macOS)
             separator()
@@ -125,6 +129,7 @@ struct ControlBar: View {
         AsyncButton(action: viewModel.toggleScreenShare) {
             Image(systemName: "arrow.up.square.fill")
                 .frame(width: Constants.buttonWidth, height: Constants.buttonHeight)
+                .contentShape(Rectangle())
         }
         .buttonStyle(
             ControlBarButtonStyle(
@@ -142,6 +147,7 @@ struct ControlBar: View {
         AsyncButton(action: viewModel.toggleTextInput) {
             Image(systemName: "ellipsis.message.fill")
                 .frame(width: Constants.buttonWidth, height: Constants.buttonHeight)
+                .contentShape(Rectangle())
         }
         .buttonStyle(
             ControlBarButtonStyle(
@@ -159,6 +165,7 @@ struct ControlBar: View {
         AsyncButton(action: viewModel.disconnect) {
             Image(systemName: "phone.down.fill")
                 .frame(width: Constants.buttonWidth, height: Constants.buttonHeight)
+                .contentShape(Rectangle())
         }
         .buttonStyle(
             ControlBarButtonStyle(
