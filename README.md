@@ -61,6 +61,16 @@ If your agent publishes a [virtual avatar](https://docs.livekit.io/agents/integr
 
 In a production environment, you will be responsible for developing a solution to [generate tokens for your users](https://docs.livekit.io/home/server/generating-tokens/) which is integrated with your authentication solution. You should disable your sandbox token server and modify `TokenService.swift` to use your own token server.
 
+## Submitting to the App Store
+
+`LiveKitWebRTC.xcframework` binary framework, which is part of the LiveKit Swift SDK, does not contain DSYMs. Submitting the app to the App Store will result in a following warning:
+
+```
+The archive did not include a dSYM for the LiveKitWebRTC.framework with the UUIDs [...]. Ensure that the archive's dSYM folder includes a DWARF file for LiveKitWebRTC.framework with the expected UUIDs.
+```
+
+It will **not prevent** the app from being submitted to the App Store or passing the review process.
+
 ## Contributing
 
 This template is open source and we welcome contributions! Please open a PR or issue through GitHub, and don't forget to join us in the [LiveKit Community Slack](https://livekit.io/join-slack)!
