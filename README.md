@@ -65,6 +65,16 @@ In a production environment, you will be responsible for developing a solution t
 
 To use this template with video (or screen sharing) input, you need to run the app on a physical device. Testing on the Simulator will still support voice and text modes, as well as virtual avatars.
 
+## Submitting to the App Store
+
+`LiveKitWebRTC.xcframework` binary framework, which is part of the LiveKit Swift SDK, does not contain DSYMs. Submitting the app to the App Store will result in a following warning:
+
+```
+The archive did not include a dSYM for the LiveKitWebRTC.framework with the UUIDs [...]. Ensure that the archive's dSYM folder includes a DWARF file for LiveKitWebRTC.framework with the expected UUIDs.
+```
+
+It will **not prevent** the app from being submitted to the App Store or passing the review process.
+
 ## Contributing
 
 This template is open source and we welcome contributions! Please open a PR or issue through GitHub, and don't forget to join us in the [LiveKit Community Slack](https://livekit.io/join-slack)!
