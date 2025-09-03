@@ -38,7 +38,7 @@ struct AgentParticipantView: View {
                                    barMinOpacity: 0.1)
                     .frame(maxWidth: 75 * .grid, maxHeight: 48 * .grid)
                     .transition(.opacity)
-            } else if session.isAvailable {
+            } else if session.isReady {
                 BarAudioVisualizer(audioTrack: nil,
                                    agentState: .listening,
                                    barCount: 1,
@@ -49,5 +49,18 @@ struct AgentParticipantView: View {
         }
         .animation(.snappy, value: session.agentAudioTrack?.id)
         .matchedGeometryEffect(id: "agent", in: namespace!)
+    }
+}
+
+extension BarAudioVisualizer {
+    init(agent: Agent?,
+         barColor: Color = .primary,
+         barCount: Int = 5,
+         barCornerRadius: CGFloat = 100,
+         barSpacingFactor: CGFloat = 0.015,
+         barMinOpacity: CGFloat = 0.16,
+         isCentered: Bool = true)
+    {
+        self.init(audioTrack: agent?.firstAudioTrack, agentState: agent?.agentState ?? .listening, barColor: barColor, barCount: barCount, barCornerRadius: barCornerRadius, barSpacingFactor: barSpacingFactor, barMinOpacity: barMinOpacity, isCentered: isCentered)
     }
 }

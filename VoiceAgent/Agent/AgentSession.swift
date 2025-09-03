@@ -12,7 +12,7 @@ final class AgentSession: ObservableObject {
 
     @Published private(set) var connectionState: ConnectionState = .disconnected
     @Published private(set) var isListening = false
-    var isAvailable: Bool {
+    var isReady: Bool {
         switch connectionState {
         case .disconnected where isListening,
              .connecting where isListening,

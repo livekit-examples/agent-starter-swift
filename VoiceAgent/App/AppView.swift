@@ -9,7 +9,7 @@ struct AppView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            if session.isAvailable {
+            if session.isReady {
                 interactions()
             } else {
                 start()
@@ -20,7 +20,7 @@ struct AppView: View {
         .environment(\.namespace, namespace)
         #if os(visionOS)
             .ornament(attachmentAnchor: .scene(.bottom)) {
-                if session.isAvailable {
+                if session.isReady {
                     ControlBar(chat: $chat)
                         .glassBackgroundEffect()
                 }
@@ -31,7 +31,7 @@ struct AppView: View {
             }
         #else
             .safeAreaInset(edge: .bottom) {
-                if session.isAvailable, !keyboardFocus {
+                if session.isReady, !keyboardFocus {
                     ControlBar(chat: $chat)
                         .transition(.asymmetric(insertion: .move(edge: .bottom).combined(with: .opacity), removal: .opacity))
                 }
@@ -39,7 +39,7 @@ struct AppView: View {
         #endif
             .background(.bg1)
             .animation(.default, value: chat)
-            .animation(.default, value: session.isAvailable)
+            .animation(.default, value: session.isReady)
             .animation(.default, value: session.isCameraEnabled)
             .animation(.default, value: session.isScreenShareEnabled)
             .animation(.default, value: session.error?.localizedDescription)
