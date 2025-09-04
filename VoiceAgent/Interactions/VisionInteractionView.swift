@@ -8,11 +8,10 @@ struct VisionInteractionView: View {
 
     var body: some View {
         HStack {
-            participants()
+            participants().rotation3DEffect(.degrees(30), axis: .y, anchor: .trailing)
             agent()
-            chat()
+            chat().rotation3DEffect(.degrees(-30), axis: .y, anchor: .leading)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     @ViewBuilder
