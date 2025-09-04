@@ -39,8 +39,17 @@ struct ChatTextInputView: View {
         .lineLimit(3)
         .submitLabel(.send)
         .onSubmit {
+            // will be called on macOS/Simulator with hardware keyboard
             Task {
                 await sendMessage()
+            }
+        }
+        .onChange(of: messageText.last?.isNewline ?? false) { _, submit in
+            // onSubmit won't be called by the submit key with software keybaord and .vertical TextField
+            if submit {
+                Task {
+                    await sendMessage()
+                }
             }
         }
         #if !os(visionOS)
@@ -70,11 +79,10 @@ struct ChatTextInputView: View {
 
     private func sendMessage() async {
         guard !messageText.isEmpty else { return }
-        defer {
-            messageText = ""
-            keyboardFocus = false
-        }
-        await chatViewModel.sendMessage(messageText)
+        let text = messageText
+        messageText = ""
+        keyboardFocus = false
+        await chatViewModel.sendMessage(text)
     }
 }
 

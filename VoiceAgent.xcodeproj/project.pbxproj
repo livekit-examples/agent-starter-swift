@@ -600,7 +600,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VoiceAgent/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = VoiceAgent;
+				INFOPLIST_KEY_CFBundleDisplayName = "LiveKit Agent";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "VoiceAgent uses your camera";
@@ -646,7 +646,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VoiceAgent/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = VoiceAgent;
+				INFOPLIST_KEY_CFBundleDisplayName = "LiveKit Agent";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "VoiceAgent uses your camera";
