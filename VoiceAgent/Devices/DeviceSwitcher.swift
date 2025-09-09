@@ -27,7 +27,9 @@ final class DeviceSwitcher: ObservableObject {
 
     private func observeDevices() {
         try? AudioManager.shared.set(microphoneMuteMode: .inputMixer) // don't play mute sound effect
-        try? AudioManager.shared.setRecordingAlwaysPreparedMode(true)
+        Task {
+            try await AudioManager.shared.setRecordingAlwaysPreparedMode(true)
+        }
 
         AudioManager.shared.onDeviceUpdate = { [weak self] _ in
             Task { @MainActor in
