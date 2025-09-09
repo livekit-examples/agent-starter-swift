@@ -39,13 +39,12 @@ final class AgentSession: ObservableObject {
 
     @Published private(set) var messages: OrderedDictionary<ReceivedMessage.ID, ReceivedMessage> = [:]
 
-    var supportedFeatures: Features { features }
+    var _room: Room { room }
 
     // MARK: - Dependencies
 
     private let environment: Environment
     private let room: Room
-    private let features: Features
     private let senders: [any MessageSender]
     private let receivers: [any MessageReceiver]
 
@@ -55,10 +54,9 @@ final class AgentSession: ObservableObject {
 
     // MARK: - Init
 
-    init(environment: Environment, context: Context = .init(), senders: [any MessageSender]? = nil, receivers: [any MessageReceiver]? = nil) {
+    init(environment: Environment, options: Options = .init(), senders: [any MessageSender]? = nil, receivers: [any MessageReceiver]? = nil) {
         self.environment = environment
-        room = context.room
-        features = context.features
+        room = options.room
 
         let textMessageSender = TextMessageSender(room: room)
         self.senders = senders ?? [textMessageSender]

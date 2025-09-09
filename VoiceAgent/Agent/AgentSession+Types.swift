@@ -18,23 +18,11 @@ extension AgentSession {
 //        }
     }
 
-    struct Features: OptionSet {
-        let rawValue: Int
-
-        static let voice = Self(rawValue: 1 << 0)
-        static let text = Self(rawValue: 1 << 1)
-        static let video = Self(rawValue: 1 << 2)
-
-        static let all: Self = [.voice, .text, .video]
-    }
-
-    struct Context {
+    struct Options {
         let room: Room
-        let features: Features
 
-        init(room: Room = .init(), features: Features = .all) {
+        init(room: Room = .init()) {
             self.room = room
-            self.features = features
         }
     }
 
