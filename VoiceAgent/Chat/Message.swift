@@ -9,7 +9,7 @@ struct ReceivedMessage: Identifiable, Equatable, Codable, Sendable {
     enum Content: Equatable, Codable, Sendable {
         case agentTranscript(String)
         case userTranscript(String)
-        case userText(String)
+        case userInput(String)
     }
 }
 
@@ -20,6 +20,6 @@ struct SentMessage: Identifiable, Equatable, Codable, Sendable {
     let content: Content
 
     enum Content: Equatable, Codable, Sendable {
-        case userText(String)
+        case userInput(String)
     }
 }

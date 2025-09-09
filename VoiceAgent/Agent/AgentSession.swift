@@ -84,7 +84,9 @@ final class AgentSession: ObservableObject {
 
     // MARK: - Public
 
-    func connect(options: ConnectOptions? = nil, roomOptions: RoomOptions? = nil, preConnectAudio: Bool = true, waitForAgent: TimeInterval = 20) async {
+    func connect(preConnectAudio: Bool = true, waitForAgent: TimeInterval = 20, options: ConnectOptions? = nil, roomOptions: RoomOptions? = nil) async {
+        guard connectionState == .disconnected else { return }
+
         error = nil
         waitForAgentTask?.cancel()
 
@@ -126,7 +128,7 @@ final class AgentSession: ObservableObject {
 
     @discardableResult
     func send(text: String) async -> SentMessage {
-        let message = SentMessage(id: UUID().uuidString, timestamp: Date(), content: .userText(text))
+        let message = SentMessage(id: UUID().uuidString, timestamp: Date(), content: .userInput(text))
         do {
             for sender in senders {
                 try await sender.send(message)

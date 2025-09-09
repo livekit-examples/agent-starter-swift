@@ -19,14 +19,14 @@ actor TextMessageSender: MessageSender, MessageReceiver {
     }
 
     func send(_ message: SentMessage) async throws {
-        guard case let .userText(text) = message.content else { return }
+        guard case let .userInput(text) = message.content else { return }
 
         try await room.localParticipant.sendText(text, for: topic)
 
         let loopbackMessage = ReceivedMessage(
             id: message.id,
             timestamp: message.timestamp,
-            content: .userText(text)
+            content: .userInput(text)
         )
 
         messageContinuation?.yield(loopbackMessage)

@@ -10,7 +10,7 @@ struct ChatView: View {
     private func message(_ message: ReceivedMessage) -> some View {
         ZStack {
             switch message.content {
-            case let .userTranscript(text), let .userText(text):
+            case let .userTranscript(text), let .userInput(text):
                 userTranscript(text)
             case let .agentTranscript(text):
                 agentTranscript(text)
