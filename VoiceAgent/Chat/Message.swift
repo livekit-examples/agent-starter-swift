@@ -9,6 +9,7 @@ struct ReceivedMessage: Identifiable, Equatable, Codable, Sendable {
     enum Content: Equatable, Codable, Sendable {
         case agentTranscript(String)
         case userTranscript(String)
+        case userText(String)
     }
 }
 

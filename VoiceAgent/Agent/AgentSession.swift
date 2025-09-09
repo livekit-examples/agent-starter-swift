@@ -143,7 +143,9 @@ final class AgentSession: ObservableObject {
         error = nil
     }
 
-    func send(message: SentMessage) async {
+    @discardableResult
+    func send(text: String) async -> SentMessage {
+        let message = SentMessage(id: UUID().uuidString, timestamp: Date(), content: .userText(text))
         do {
             for sender in senders {
                 try await sender.send(message)
@@ -151,6 +153,7 @@ final class AgentSession: ObservableObject {
         } catch {
             self.error = .failedToSend(error)
         }
+        return message
     }
 
     func getMessageHistory() -> [ReceivedMessage] {

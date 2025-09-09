@@ -74,6 +74,6 @@ struct ChatTextInputView: View {
             messageText = ""
             keyboardFocus = false
         }
-        await session.send(message: SentMessage(id: UUID().uuidString, timestamp: Date(), content: .userText(messageText)))
+        await session.send(text: messageText)
     }
 }

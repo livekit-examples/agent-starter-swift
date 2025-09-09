@@ -26,7 +26,7 @@ actor TextMessageSender: MessageSender, MessageReceiver {
         let loopbackMessage = ReceivedMessage(
             id: message.id,
             timestamp: message.timestamp,
-            content: .userTranscript(text)
+            content: .userText(text)
         )
 
         messageContinuation?.yield(loopbackMessage)
