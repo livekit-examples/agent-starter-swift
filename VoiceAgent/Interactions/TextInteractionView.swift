@@ -10,6 +10,7 @@ import SwiftUI
 /// Additionally, the view shows a complete chat view with text input capabilities.
 struct TextInteractionView: View {
     @EnvironmentObject private var session: AgentSession
+    @EnvironmentObject private var devices: DeviceSwitcher
     @FocusState.Binding var keyboardFocus: Bool
 
     var body: some View {
@@ -42,7 +43,7 @@ struct TextInteractionView: View {
             LocalParticipantView()
             Spacer()
         }
-        .frame(height: session.isCameraEnabled || session.isScreenShareEnabled || session.avatarCameraTrack != nil ? 50 * .grid : 25 * .grid)
+        .frame(height: devices.isCameraEnabled || devices.isScreenShareEnabled || session.avatarCameraTrack != nil ? 50 * .grid : 25 * .grid)
         .safeAreaPadding()
     }
 }

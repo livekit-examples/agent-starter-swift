@@ -24,16 +24,6 @@ final class AgentSession: ObservableObject {
         }
     }
 
-    @Published private(set) var localAudioTrack: (any AudioTrack)?
-    @Published private(set) var localCameraTrack: (any VideoTrack)?
-    @Published private(set) var localScreenShareTrack: (any VideoTrack)?
-
-    // TODO: Move camera switching here (vs Devices)?
-
-    var isMicrophoneEnabled: Bool { localAudioTrack != nil }
-    var isCameraEnabled: Bool { localCameraTrack != nil }
-    var isScreenShareEnabled: Bool { localScreenShareTrack != nil }
-
     @Published private(set) var agentAudioTrack: (any AudioTrack)?
     @Published private(set) var avatarCameraTrack: (any VideoTrack)?
 
@@ -74,10 +64,6 @@ final class AgentSession: ObservableObject {
 
                 connectionState = room.connectionState
                 agent = room.agentParticipant
-
-                localAudioTrack = room.localParticipant.firstAudioTrack
-                localCameraTrack = room.localParticipant.firstCameraVideoTrack
-                localScreenShareTrack = room.localParticipant.firstScreenShareVideoTrack
 
                 agentAudioTrack = room.agentParticipant?.audioTracks.first(where: { $0.source == .microphone })?.track as? AudioTrack // remove bg audio tracks
                 avatarCameraTrack = room.agentParticipant?.avatarWorker?.firstCameraVideoTrack
@@ -136,6 +122,8 @@ final class AgentSession: ObservableObject {
         error = nil
     }
 
+    // MARK: - Messages
+
     @discardableResult
     func send(text: String) async -> SentMessage {
         let message = SentMessage(id: UUID().uuidString, timestamp: Date(), content: .userText(text))
@@ -155,42 +143,5 @@ final class AgentSession: ObservableObject {
 
     func restoreMessageHistory(_ messages: [ReceivedMessage]) {
         self.messages = .init(uniqueKeysWithValues: messages.sorted(by: { $0.timestamp < $1.timestamp }).map { ($0.id, $0) })
-    }
-
-    func toggleMicrophone() async {
-        do {
-            try await room.localParticipant.setMicrophone(enabled: !isMicrophoneEnabled)
-        } catch {
-            self.error = .mediaDevice(error)
-        }
-    }
-
-    func toggleCamera() async {
-        let enable = !isCameraEnabled
-        do {
-            // One video track at a time
-            if enable, isScreenShareEnabled {
-                try await room.localParticipant.setScreenShare(enabled: false)
-            }
-
-            // Hm???
-//            let device = try await CameraCapturer.captureDevices().first(where: { $0.uniqueID == selectedVideoDeviceID })
-            try await room.localParticipant.setCamera(enabled: enable) // captureOptions: CameraCaptureOptions(device: device))
-        } catch {
-            self.error = .mediaDevice(error)
-        }
-    }
-
-    func toggleScreenShare() async {
-        let enable = !isScreenShareEnabled
-        do {
-            // One video track at a time
-            if enable, isCameraEnabled {
-                try await room.localParticipant.setCamera(enabled: false)
-            }
-            try await room.localParticipant.setScreenShare(enabled: enable)
-        } catch {
-            self.error = .mediaDevice(error)
-        }
     }
 }

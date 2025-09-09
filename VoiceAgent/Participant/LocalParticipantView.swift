@@ -2,12 +2,11 @@ import LiveKitComponents
 
 /// A view that shows the local participant's camera view with flip control.
 struct LocalParticipantView: View {
-    @EnvironmentObject private var session: AgentSession
     @EnvironmentObject private var devices: DeviceSwitcher
     @Environment(\.namespace) private var namespace
 
     var body: some View {
-        if let cameraTrack = session.localCameraTrack {
+        if let cameraTrack = devices.localCameraTrack {
             SwiftUIVideoView(cameraTrack)
                 .clipShape(RoundedRectangle(cornerRadius: .cornerRadiusPerPlatform))
                 .aspectRatio(cameraTrack.aspectRatio, contentMode: .fit)

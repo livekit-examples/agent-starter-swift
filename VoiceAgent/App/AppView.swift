@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AppView: View {
     @EnvironmentObject private var session: AgentSession
+    @EnvironmentObject private var devices: DeviceSwitcher
     @State private var chat: Bool = false
 
     @FocusState private var keyboardFocus: Bool
@@ -40,8 +41,8 @@ struct AppView: View {
             .background(.bg1)
             .animation(.default, value: chat)
             .animation(.default, value: session.isReady)
-            .animation(.default, value: session.isCameraEnabled)
-            .animation(.default, value: session.isScreenShareEnabled)
+            .animation(.default, value: devices.isCameraEnabled)
+            .animation(.default, value: devices.isScreenShareEnabled)
             .animation(.default, value: session.error?.localizedDescription)
         #if os(iOS)
             .sensoryFeedback(.impact, trigger: session.isListening) { !$0 && $1 }
@@ -94,8 +95,8 @@ struct AppView: View {
     private func agentListening() -> some View {
         ZStack {
             if session.messages.isEmpty,
-               !session.isCameraEnabled,
-               !session.isScreenShareEnabled
+               !devices.isCameraEnabled,
+               !devices.isScreenShareEnabled
             {
                 AgentListeningView()
             }

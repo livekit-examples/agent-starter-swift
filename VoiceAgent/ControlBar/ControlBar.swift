@@ -5,6 +5,7 @@ import LiveKitComponents
 /// - SeeAlso: ``AgentFeatures``
 struct ControlBar: View {
     @EnvironmentObject private var session: AgentSession
+    @EnvironmentObject private var devices: DeviceSwitcher
     @Binding var chat: Bool
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
@@ -80,14 +81,14 @@ struct ControlBar: View {
     private func audioControls() -> some View {
         HStack(spacing: 2 * .grid) {
             Spacer()
-            AsyncButton(action: session.toggleMicrophone) {
+            AsyncButton(action: devices.toggleMicrophone) {
                 HStack(spacing: .grid) {
-                    Image(systemName: session.isMicrophoneEnabled ? "microphone.fill" : "microphone.slash.fill")
+                    Image(systemName: devices.isMicrophoneEnabled ? "microphone.fill" : "microphone.slash.fill")
                         .transition(.symbolEffect)
-                    BarAudioVisualizer(audioTrack: session.localAudioTrack, barColor: .fg1, barCount: 3, barSpacingFactor: 0.1)
+                    BarAudioVisualizer(audioTrack: devices.localAudioTrack, barColor: .fg1, barCount: 3, barSpacingFactor: 0.1)
                         .frame(width: 2 * .grid, height: 0.5 * Constants.buttonHeight)
                         .frame(maxHeight: .infinity)
-                        .id(session.localAudioTrack?.id)
+                        .id(devices.localAudioTrack?.id)
                 }
                 .frame(height: Constants.buttonHeight)
             }
@@ -105,8 +106,8 @@ struct ControlBar: View {
     private func videoControls() -> some View {
         HStack(spacing: 2 * .grid) {
             Spacer()
-            AsyncButton(action: session.toggleCamera) {
-                Image(systemName: session.isCameraEnabled ? "video.fill" : "video.slash.fill")
+            AsyncButton(action: devices.toggleCamera) {
+                Image(systemName: devices.isCameraEnabled ? "video.fill" : "video.slash.fill")
                     .transition(.symbolEffect)
                     .frame(height: Constants.buttonHeight)
             }
@@ -123,13 +124,13 @@ struct ControlBar: View {
 
     @ViewBuilder
     private func screenShareButton() -> some View {
-        AsyncButton(action: session.toggleScreenShare) {
+        AsyncButton(action: devices.toggleScreenShare) {
             Image(systemName: "arrow.up.square.fill")
                 .frame(width: Constants.buttonWidth, height: Constants.buttonHeight)
         }
         .buttonStyle(
             ControlBarButtonStyle(
-                isToggled: session.isScreenShareEnabled,
+                isToggled: devices.isScreenShareEnabled,
                 foregroundColor: .fg1,
                 backgroundColor: .bg2,
                 borderColor: .separator1

@@ -8,7 +8,6 @@ extension AgentSession {
         case agentNotConnected
         case failedToConnect(Swift.Error)
         case failedToSend(Swift.Error)
-        case mediaDevice(Swift.Error)
 
 //        var errorDescription: String? {
 //            switch self {
