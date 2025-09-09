@@ -1,32 +1,40 @@
 import Foundation
+import LiveKit
+
+public struct Credentials: Decodable {
+    let serverUrl: URL
+    let participantToken: String
+}
+
+public protocol CredentialsProvider: Sendable {
+    func credentials() async throws -> Credentials
+}
+
+public extension Room {
+    func connect(credentialsProvider: CredentialsProvider,
+                 connectOptions: ConnectOptions? = nil,
+                 roomOptions: RoomOptions? = nil) async throws
+    {
+        let credentials = try await credentialsProvider.credentials()
+        try await connect(url: credentials.serverUrl.absoluteString, token: credentials.participantToken, connectOptions: connectOptions, roomOptions: roomOptions)
+    }
+}
 
 /// A service for fetching LiveKit authentication tokens.
-/// See [docs](https://docs.livekit.io/home/get-started/authentication) for more information.
-enum Sandbox {
+/// See [docs](https://CredentialsProvider.livekit.io/home/get-started/authentication) for more information.
+public struct Sandbox: CredentialsProvider {
+    private static let url: URL = .init(string: "https://cloud-api.livekit.io/api/sandbox/connection-details")!
+
     enum Error: Swift.Error {
         case noResponse
         case unsuccessfulStatusCode(Int)
         case decoding(Swift.Error)
     }
 
-    struct Connection: Decodable {
-        let serverUrl: String
-        let participantToken: String
-        let roomName: String
-        let participantName: String
-    }
+    let id: String
 
-    private static let url: String = "https://cloud-api.livekit.io/api/sandbox/connection-details"
-
-    // TODO: These are not respected anyway (names)
-    static func getConnection(id: String, roomName: String, participantName: String) async throws -> Connection {
-        var urlComponents = URLComponents(string: url)!
-        urlComponents.queryItems = [
-            URLQueryItem(name: "roomName", value: roomName),
-            URLQueryItem(name: "participantName", value: participantName),
-        ]
-
-        var request = URLRequest(url: urlComponents.url!)
+    public func credentials() async throws -> Credentials {
+        var request = URLRequest(url: Self.url)
         request.httpMethod = "POST"
         request.addValue(id.trimmingCharacters(in: CharacterSet(charactersIn: "\"")), forHTTPHeaderField: "X-Sandbox-ID")
 
@@ -41,9 +49,15 @@ enum Sandbox {
         }
 
         do {
-            return try JSONDecoder().decode(Connection.self, from: data)
+            return try JSONDecoder().decode(Credentials.self, from: data)
         } catch {
             throw Error.decoding(error)
         }
+    }
+}
+
+extension Credentials: CredentialsProvider {
+    public func credentials() async throws -> Credentials {
+        self
     }
 }

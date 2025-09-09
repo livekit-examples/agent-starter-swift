@@ -43,7 +43,7 @@ final class AgentSession: ObservableObject {
 
     // MARK: - Dependencies
 
-    private let environment: Environment
+    private let credentials: any CredentialsProvider
     private let room: Room
     private let senders: [any MessageSender]
     private let receivers: [any MessageReceiver]
@@ -54,9 +54,9 @@ final class AgentSession: ObservableObject {
 
     // MARK: - Init
 
-    init(environment: Environment, options: Options = .init(), senders: [any MessageSender]? = nil, receivers: [any MessageReceiver]? = nil) {
-        self.environment = environment
-        room = options.room
+    init(credentials: CredentialsProvider, room: Room = .init(), senders: [any MessageSender]? = nil, receivers: [any MessageReceiver]? = nil) {
+        self.credentials = credentials
+        self.room = room
 
         let textMessageSender = TextMessageSender(room: room)
         self.senders = senders ?? [textMessageSender]
@@ -113,20 +113,15 @@ final class AgentSession: ObservableObject {
             }
         }
 
-        let connection = { @Sendable in
-            let (server, token) = try await self.credentials()
-            try await self.room.connect(url: server, token: token, connectOptions: options, roomOptions: roomOptions)
-        }
-
         do {
             if preConnectAudio {
                 try await room.withPreConnectAudio(timeout: waitForAgent) {
                     await MainActor.run { self.isListening = true }
-                    try await connection()
+                    try await self.room.connect(credentialsProvider: self.credentials, connectOptions: options, roomOptions: roomOptions)
                     await MainActor.run { self.isListening = false }
                 }
             } else {
-                try await connection()
+                try await room.connect(credentialsProvider: credentials, connectOptions: options, roomOptions: roomOptions)
             }
         } catch {
             self.error = .failedToConnect(error)
@@ -196,18 +191,6 @@ final class AgentSession: ObservableObject {
             try await room.localParticipant.setScreenShare(enabled: enable)
         } catch {
             self.error = .mediaDevice(error)
-        }
-    }
-
-    // MARK: - Private
-
-    private func credentials() async throws -> (server: String, token: String) {
-        switch environment {
-        case let .sandbox(id, room, participant):
-            let sandboxConnection = try await Sandbox.getConnection(id: id, roomName: room, participantName: participant)
-            return (sandboxConnection.serverUrl, sandboxConnection.participantToken)
-        case let .cloud(server, token):
-            return (server, token)
         }
     }
 }

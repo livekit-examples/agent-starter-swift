@@ -13,7 +13,7 @@ struct VoiceAgentApp: App {
         WindowGroup {
             AppView()
                 .environmentObject(DeviceSwitcher(room: room))
-                .environmentObject(AgentSession(environment: .sandbox(id: sandboxID), options: .init(room: room)))
+                .environmentObject(AgentSession(credentials: Sandbox(id: sandboxID), room: room))
         }
         #if os(macOS)
         .defaultSize(width: 900, height: 900)
