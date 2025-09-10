@@ -44,7 +44,7 @@ final class AgentSession: ObservableObject {
 
     // MARK: - Init
 
-    init(credentials: CredentialsProvider, room: Room = .init(), senders: [any MessageSender]? = nil, receivers: [any MessageReceiver]? = nil) {
+    init(credentials: CredentialsProvider, room: Room = .init(), agentName: String? = nil, senders: [any MessageSender]? = nil, receivers: [any MessageReceiver]? = nil) {
         self.credentials = credentials
         self.room = room
 
@@ -52,18 +52,18 @@ final class AgentSession: ObservableObject {
         self.senders = senders ?? [textMessageSender]
         self.receivers = receivers ?? [textMessageSender, TranscriptionStreamReceiver(room: room)]
 
-        observeRoom()
+        observeRoom(agentName: agentName)
         observeReceivers()
     }
 
-    private func observeRoom() {
+    private func observeRoom(agentName _: String?) {
         Task { [weak self] in
             guard let changes = self?.room.changes else { return }
             for await _ in changes {
                 guard let self else { return }
 
                 connectionState = room.connectionState
-                agent = room.agentParticipant
+                agent = room.agentParticipant // here comes the filter for agentName
 
                 agentAudioTrack = room.agentParticipant?.audioTracks.first(where: { $0.source == .microphone })?.track as? AudioTrack // remove bg audio tracks
                 avatarCameraTrack = room.agentParticipant?.avatarWorker?.firstCameraVideoTrack
