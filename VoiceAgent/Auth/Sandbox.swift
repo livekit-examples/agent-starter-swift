@@ -4,6 +4,8 @@ import LiveKit
 public struct Credentials: Decodable {
     let serverUrl: URL
     let participantToken: String
+    let participantName: String?
+    let roomName: String?
 }
 
 public protocol CredentialsProvider: Sendable {
@@ -21,7 +23,7 @@ public extension Room {
 }
 
 /// A service for fetching LiveKit authentication tokens.
-/// See [docs](https://CredentialsProvider.livekit.io/home/get-started/authentication) for more information.
+/// See [docs](https://docs.livekit.io/home/get-started/authentication/) for more information.
 public struct Sandbox: CredentialsProvider {
     private static let url: URL = .init(string: "https://cloud-api.livekit.io/api/sandbox/connection-details")!
 
