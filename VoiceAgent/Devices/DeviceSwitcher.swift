@@ -42,6 +42,10 @@ final class DeviceSwitcher: ObservableObject {
         observeDevices()
     }
 
+    convenience init(agentSession: AgentSession) {
+        self.init(room: agentSession._room)
+    }
+
     private func observeRoom() {
         Task { [weak self] in
             guard let changes = self?.room.changes else { return }
