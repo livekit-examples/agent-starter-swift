@@ -1,4 +1,4 @@
-import LiveKit
+import LiveKitComponents
 import SwiftUI
 
 /// A multiplatform view that shows the chat input text field and send button.

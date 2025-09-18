@@ -1,4 +1,4 @@
-import LiveKit
+import LiveKitComponents
 import SwiftUI
 
 struct ChatView: View {

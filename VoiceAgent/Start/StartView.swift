@@ -1,4 +1,4 @@
-import LiveKit
+import LiveKitComponents
 import SwiftUI
 
 /// The initial view that is shown when the app is not connected to the server.

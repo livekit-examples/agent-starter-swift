@@ -53,16 +53,3 @@ struct AgentParticipantView: View {
         .matchedGeometryEffect(id: "agent", in: namespace!)
     }
 }
-
-extension BarAudioVisualizer {
-    init(agent: Agent?,
-         barColor: Color = .primary,
-         barCount: Int = 5,
-         barCornerRadius: CGFloat = 100,
-         barSpacingFactor: CGFloat = 0.015,
-         barMinOpacity: CGFloat = 0.16,
-         isCentered: Bool = true)
-    {
-        self.init(audioTrack: agent?.audioTrack, agentState: agent?.state ?? .listening, barColor: barColor, barCount: barCount, barCornerRadius: barCornerRadius, barSpacingFactor: barSpacingFactor, barMinOpacity: barMinOpacity, isCentered: isCentered)
-    }
-}
