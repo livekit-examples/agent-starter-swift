@@ -6,7 +6,6 @@ struct AppView: View {
     @LKLocalMedia private var localMedia
 
     @State private var chat: Bool = false
-
     @FocusState private var keyboardFocus: Bool
     @Namespace private var namespace
 

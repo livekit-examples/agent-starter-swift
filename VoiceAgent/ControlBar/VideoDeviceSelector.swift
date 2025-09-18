@@ -1,20 +1,21 @@
 import AVFoundation
+import LiveKitComponents
 import SwiftUI
 
 #if os(macOS)
 /// A platform-specific view that shows a list of available video devices.
 struct VideoDeviceSelector: View {
-    @EnvironmentObject private var devices: DeviceSwitcher
+    @LKLocalMedia private var localMedia
 
     var body: some View {
         Menu {
-            ForEach(devices.videoDevices, id: \.uniqueID) { device in
+            ForEach(localMedia.videoDevices, id: \.uniqueID) { device in
                 AsyncButton {
-                    await devices.select(videoDevice: device)
+                    await localMedia.select(videoDevice: device)
                 } label: {
                     HStack {
                         Text(device.localizedName)
-                        if device.uniqueID == devices.selectedVideoDeviceID {
+                        if device.uniqueID == localMedia.selectedVideoDeviceID {
                             Image(systemName: "checkmark")
                         }
                     }

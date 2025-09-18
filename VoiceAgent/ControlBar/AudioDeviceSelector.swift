@@ -1,19 +1,20 @@
+import LiveKitComponents
 import SwiftUI
 
 #if os(macOS)
 /// A platform-specific view that shows a list of available audio devices.
 struct AudioDeviceSelector: View {
-    @EnvironmentObject private var devices: DeviceSwitcher
+    @LKLocalMedia private var localMedia
 
     var body: some View {
         Menu {
-            ForEach(devices.audioDevices, id: \.deviceId) { device in
+            ForEach(localMedia.audioDevices, id: \.deviceId) { device in
                 Button {
-                    devices.select(audioDevice: device)
+                    localMedia.select(audioDevice: device)
                 } label: {
                     HStack {
                         Text(device.name)
-                        if device.deviceId == devices.selectedAudioDeviceID {
+                        if device.deviceId == localMedia.selectedAudioDeviceID {
                             Image(systemName: "checkmark")
                         }
                     }
