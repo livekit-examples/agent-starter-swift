@@ -3,6 +3,7 @@ import LiveKitComponents
 /// A view that shows the screen share preview.
 struct ScreenShareView: View {
     @LKLocalMedia private var localMedia
+
     @Environment(\.namespace) private var namespace
 
     var body: some View {

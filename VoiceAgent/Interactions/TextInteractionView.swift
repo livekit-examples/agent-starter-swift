@@ -10,7 +10,6 @@ import SwiftUI
 ///
 /// Additionally, the view shows a complete chat view with text input capabilities.
 struct TextInteractionView: View {
-    @LKConversation private var conversation
     @LKAgent private var agent
     @LKLocalMedia private var localMedia
 

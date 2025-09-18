@@ -4,8 +4,8 @@ import SwiftUI
 /// The initial view that is shown when the app is not connected to the server.
 struct StartView: View {
     @LKConversation private var conversation
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Namespace private var button
 
     var body: some View {

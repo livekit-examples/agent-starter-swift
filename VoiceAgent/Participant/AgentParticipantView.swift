@@ -6,8 +6,8 @@ import LiveKitComponents
 struct AgentParticipantView: View {
     @LKConversation private var conversation
     @LKAgent private var agent
-    @Environment(\.namespace) private var namespace
 
+    @Environment(\.namespace) private var namespace
     /// Reveals the avatar camera view when true.
     @SceneStorage("videoTransition") private var videoTransition = false
 
