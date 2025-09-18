@@ -10,7 +10,6 @@
 		ACAEBA5B2DE6EE970072E93E /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAEBA5A2DE6EE970072E93E /* ReplayKit.framework */; };
 		ACAEBA622DE6EE970072E93E /* BroadcastExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = ACAEBA582DE6EE970072E93E /* BroadcastExtension.appex */; platformFilters = (ios, xros, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		ACAEBA692DE6EF4B0072E93E /* LiveKit in Frameworks */ = {isa = PBXBuildFile; productRef = ACAEBA682DE6EF4B0072E93E /* LiveKit */; };
-		ACFBA1DB2D8D5CBE0021202B /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = ACFBA1DA2D8D5CBE0021202B /* Collections */; };
 		B5E1B90F2D14E9EC00A38CB6 /* LiveKitComponents in Frameworks */ = {isa = PBXBuildFile; productRef = B5E1B90E2D14E9EC00A38CB6 /* LiveKitComponents */; };
 		B5E1B9122D14E9F500A38CB6 /* LiveKit in Frameworks */ = {isa = PBXBuildFile; productRef = B5E1B9112D14E9F500A38CB6 /* LiveKit */; };
 /* End PBXBuildFile section */
@@ -98,7 +97,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACFBA1DB2D8D5CBE0021202B /* Collections in Frameworks */,
 				B5E1B90F2D14E9EC00A38CB6 /* LiveKitComponents in Frameworks */,
 				B5E1B9122D14E9F500A38CB6 /* LiveKit in Frameworks */,
 			);
@@ -181,7 +179,6 @@
 			packageProductDependencies = (
 				B5E1B90E2D14E9EC00A38CB6 /* LiveKitComponents */,
 				B5E1B9112D14E9F500A38CB6 /* LiveKit */,
-				ACFBA1DA2D8D5CBE0021202B /* Collections */,
 			);
 			productName = VoiceAgent;
 			productReference = B5B5E3B22D124AE00099C9BE /* VoiceAgent.app */;
@@ -217,7 +214,6 @@
 			packageReferences = (
 				B5E1B90D2D14E9EC00A38CB6 /* XCRemoteSwiftPackageReference "components-swift" */,
 				B5E1B9102D14E9F500A38CB6 /* XCRemoteSwiftPackageReference "client-sdk-swift" */,
-				ACFBA1D92D8D5CBE0021202B /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B5B5E3B32D124AE00099C9BE /* Products */;
@@ -589,14 +585,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		ACFBA1D92D8D5CBE0021202B /* XCRemoteSwiftPackageReference "swift-collections" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-collections";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.4;
-			};
-		};
 		B5E1B90D2D14E9EC00A38CB6 /* XCRemoteSwiftPackageReference "components-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/livekit/components-swift";
@@ -619,11 +607,6 @@
 		ACAEBA682DE6EF4B0072E93E /* LiveKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = LiveKit;
-		};
-		ACFBA1DA2D8D5CBE0021202B /* Collections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = ACFBA1D92D8D5CBE0021202B /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = Collections;
 		};
 		B5E1B90E2D14E9EC00A38CB6 /* LiveKitComponents */ = {
 			isa = XCSwiftPackageProductDependency;
