@@ -4,8 +4,8 @@ import LiveKitComponents
 /// Available controls depend on the agent features and the track availability.
 /// - SeeAlso: ``AgentFeatures``
 struct ControlBar: View {
-    @LKConversation private var conversation
-    @LKLocalMedia private var localMedia
+    @LiveKitConversation private var conversation
+    @LiveKitLocalMedia private var localMedia
 
     @Binding var chat: Bool
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass

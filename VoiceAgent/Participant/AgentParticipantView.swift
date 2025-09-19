@@ -4,8 +4,8 @@ import LiveKitComponents
 /// or the audio visualizer (if available).
 /// - Note: If both are unavailable, the view will show a placeholder visualizer.
 struct AgentParticipantView: View {
-    @LKConversation private var conversation
-    @LKAgent private var agent
+    @LiveKitConversation private var conversation
+    @LiveKitAgent private var agent
 
     @Environment(\.namespace) private var namespace
     /// Reveals the avatar camera view when true.

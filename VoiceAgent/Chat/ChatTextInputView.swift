@@ -3,7 +3,7 @@ import SwiftUI
 
 /// A multiplatform view that shows the chat input text field and send button.
 struct ChatTextInputView: View {
-    @LKConversation private var conversation
+    @LiveKitConversation private var conversation
 
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @FocusState.Binding var keyboardFocus: Bool

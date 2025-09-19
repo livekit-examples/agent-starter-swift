@@ -4,7 +4,7 @@ import SwiftUI
 #if os(macOS)
 /// A platform-specific view that shows a list of available audio devices.
 struct AudioDeviceSelector: View {
-    @LKLocalMedia private var localMedia
+    @LiveKitLocalMedia private var localMedia
 
     var body: some View {
         Menu {
