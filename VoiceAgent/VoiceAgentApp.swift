@@ -16,7 +16,7 @@ struct VoiceAgentApp: App {
 
     @StateObject private var session = Session(
         tokenSource: SandboxTokenSource(id: Self.sandboxId),
-        options: Session.Options(room: Room(roomOptions: RoomOptions(defaultScreenShareCaptureOptions: ScreenShareCaptureOptions(useBroadcastExtension: true))))
+        options: SessionOptions(room: Room(roomOptions: RoomOptions(defaultScreenShareCaptureOptions: ScreenShareCaptureOptions(useBroadcastExtension: true))))
     )
 
     var body: some Scene {
