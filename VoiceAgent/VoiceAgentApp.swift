@@ -13,15 +13,14 @@ struct VoiceAgentApp: App {
     // - Enable your sandbox here https://cloud.livekit.io/projects/p_/sandbox/templates/token-server
     // - Create .env.xcconfig with your LIVEKIT_SANDBOX_ID
     private static let sandboxId = Bundle.main.object(forInfoDictionaryKey: "LiveKitSandboxId") as! String
-    @StateObject private var conversation = Conversation(credentials: CachingCredentialsProvider(SandboxTokenServer(id: Self.sandboxId)),
-                                                         // agentName: ...
-                                                         room: Room(roomOptions: RoomOptions(defaultScreenShareCaptureOptions: ScreenShareCaptureOptions(useBroadcastExtension: true))))
+    @StateObject private var session = Session(tokenSource: SandboxTokenSource(id: Self.sandboxId),
+                                               room: Room(roomOptions: RoomOptions(defaultScreenShareCaptureOptions: ScreenShareCaptureOptions(useBroadcastExtension: true))))
 
     var body: some Scene {
         WindowGroup {
             AppView()
-                .environmentObject(conversation)
-                .environmentObject(LocalMedia(conversation: conversation))
+                .environmentObject(session)
+                .environmentObject(LocalMedia(session: session))
         }
         #if os(macOS)
         .defaultSize(width: 900, height: 900)

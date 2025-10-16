@@ -4,7 +4,7 @@ import LiveKitComponents
 /// or the audio visualizer (if available).
 /// - Note: If both are unavailable, the view will show a placeholder visualizer.
 struct AgentParticipantView: View {
-    @LiveKitConversation private var conversation
+    @LiveKitSession private var session
     @LiveKitAgent private var agent
 
     @Environment(\.namespace) private var namespace
@@ -40,7 +40,7 @@ struct AgentParticipantView: View {
                                    barMinOpacity: 0.1)
                     .frame(maxWidth: 75 * .grid, maxHeight: 48 * .grid)
                     .transition(.opacity)
-            } else if conversation.isReady {
+            } else if session.isReady {
                 BarAudioVisualizer(audioTrack: nil,
                                    agentState: .listening,
                                    barCount: 1,

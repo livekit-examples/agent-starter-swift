@@ -4,7 +4,7 @@ import LiveKitComponents
 /// Available controls depend on the agent features and the track availability.
 /// - SeeAlso: ``AgentFeatures``
 struct ControlBar: View {
-    @LiveKitConversation private var conversation
+    @LiveKitSession private var session
     @LiveKitLocalMedia private var localMedia
 
     @Binding var chat: Bool
@@ -126,7 +126,7 @@ struct ControlBar: View {
             Spacer()
         }
         .frame(width: Constants.buttonWidth)
-        .disabled(!conversation.hasAgents)
+        .disabled(!session.hasAgents)
     }
 
     @ViewBuilder
@@ -146,7 +146,7 @@ struct ControlBar: View {
                 borderColor: .separator1
             )
         )
-        .disabled(!conversation.hasAgents)
+        .disabled(!session.hasAgents)
     }
 
     @ViewBuilder
@@ -166,14 +166,14 @@ struct ControlBar: View {
                 borderColor: .separator1
             )
         )
-        .disabled(!conversation.hasAgents)
+        .disabled(!session.hasAgents)
     }
 
     @ViewBuilder
     private func disconnectButton() -> some View {
         AsyncButton {
-            await conversation.end()
-            conversation.restoreMessageHistory([])
+            await session.end()
+            session.restoreMessageHistory([])
         } label: {
             Image(systemName: "phone.down.fill")
                 .frame(width: Constants.buttonWidth, height: Constants.buttonHeight)
@@ -186,7 +186,7 @@ struct ControlBar: View {
                 borderColor: .separatorSerious
             )
         )
-        .disabled(conversation.connectionState == .disconnected)
+        .disabled(session.connectionState == .disconnected)
     }
 }
 

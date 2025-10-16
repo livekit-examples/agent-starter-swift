@@ -2,7 +2,7 @@ import LiveKit
 import SwiftUI
 
 struct AppView: View {
-    @LiveKitConversation private var conversation
+    @LiveKitSession private var session
     @LiveKitLocalMedia private var localMedia
 
     @State private var chat: Bool = false
@@ -11,7 +11,7 @@ struct AppView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            if conversation.isReady {
+            if session.isReady {
                 interactions()
             } else {
                 start()
@@ -22,18 +22,18 @@ struct AppView: View {
         .environment(\.namespace, namespace)
         #if os(visionOS)
             .ornament(attachmentAnchor: .scene(.bottom)) {
-                if conversation.isReady {
+                if session.isReady {
                     ControlBar(chat: $chat)
                         .glassBackgroundEffect()
                 }
             }
-            .alert("warning.reconnecting", isPresented: .constant(conversation.connectionState == .reconnecting)) {}
-            .alert(conversation.error?.localizedDescription ?? "error.title", isPresented: .constant(conversation.error != nil)) {
-                Button("error.ok") { conversation.resetError() }
+            .alert("warning.reconnecting", isPresented: .constant(session.connectionState == .reconnecting)) {}
+            .alert(session.error?.localizedDescription ?? "error.title", isPresented: .constant(session.error != nil)) {
+                Button("error.ok") { session.resetError() }
             }
         #else
             .safeAreaInset(edge: .bottom) {
-                if conversation.isReady, !keyboardFocus {
+                if session.isReady, !keyboardFocus {
                     ControlBar(chat: $chat)
                         .transition(.asymmetric(insertion: .move(edge: .bottom).combined(with: .opacity), removal: .opacity))
                 }
@@ -41,12 +41,12 @@ struct AppView: View {
         #endif
             .background(.bg1)
             .animation(.default, value: chat)
-            .animation(.default, value: conversation.isReady)
-            .animation(.default, value: conversation.error?.localizedDescription)
+            .animation(.default, value: session.isReady)
+            .animation(.default, value: session.error?.localizedDescription)
             .animation(.default, value: localMedia.isCameraEnabled)
             .animation(.default, value: localMedia.isScreenShareEnabled)
         #if os(iOS)
-            .sensoryFeedback(.impact, trigger: conversation.isListening) { !$0 && $1 }
+            .sensoryFeedback(.impact, trigger: session.isListening) { !$0 && $1 }
         #endif
     }
 
@@ -82,12 +82,12 @@ struct AppView: View {
     @ViewBuilder
     private func errors() -> some View {
         #if !os(visionOS)
-        if case .reconnecting = conversation.connectionState {
+        if case .reconnecting = session.connectionState {
             WarningView(warning: "warning.reconnecting")
         }
 
-        if let error = conversation.error {
-            ErrorView(error: error) { conversation.resetError() }
+        if let error = session.error {
+            ErrorView(error: error) { session.resetError() }
         }
         #endif
     }
@@ -95,14 +95,14 @@ struct AppView: View {
     @ViewBuilder
     private func agentListening() -> some View {
         ZStack {
-            if conversation.messages.isEmpty,
+            if session.messages.isEmpty,
                !localMedia.isCameraEnabled,
                !localMedia.isScreenShareEnabled
             {
                 AgentListeningView()
             }
         }
-        .animation(.default, value: conversation.messages.isEmpty)
+        .animation(.default, value: session.messages.isEmpty)
     }
 }
 

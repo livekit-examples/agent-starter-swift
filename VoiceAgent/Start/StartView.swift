@@ -3,7 +3,7 @@ import SwiftUI
 
 /// The initial view that is shown when the app is not connected to the server.
 struct StartView: View {
-    @LiveKitConversation private var conversation
+    @LiveKitSession private var session
 
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Namespace private var button
@@ -57,7 +57,7 @@ struct StartView: View {
     @ViewBuilder
     private func connectButton() -> some View {
         AsyncButton {
-            await conversation.start()
+            await session.start()
         } label: {
             HStack {
                 Spacer()
