@@ -2,8 +2,8 @@ import LiveKit
 import SwiftUI
 
 struct AppView: View {
-    @LiveKitSession private var session
-    @LiveKitLocalMedia private var localMedia
+    @EnvironmentObject private var session: Session
+    @EnvironmentObject private var localMedia: LocalMedia
 
     @State private var chat: Bool = false
     @FocusState private var keyboardFocus: Bool

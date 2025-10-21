@@ -4,8 +4,8 @@ import LiveKitComponents
 /// Available controls depend on the agent features and the track availability.
 /// - SeeAlso: ``AgentFeatures``
 struct ControlBar: View {
-    @LiveKitSession private var session
-    @LiveKitLocalMedia private var localMedia
+    @EnvironmentObject private var session: Session
+    @EnvironmentObject private var localMedia: LocalMedia
 
     @Binding var chat: Bool
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -126,7 +126,7 @@ struct ControlBar: View {
             Spacer()
         }
         .frame(width: Constants.buttonWidth)
-        .disabled(!session.hasAgents)
+        .disabled(!session.hasAgent)
     }
 
     @ViewBuilder
@@ -146,7 +146,7 @@ struct ControlBar: View {
                 borderColor: .separator1
             )
         )
-        .disabled(!session.hasAgents)
+        .disabled(!session.hasAgent)
     }
 
     @ViewBuilder
@@ -166,7 +166,7 @@ struct ControlBar: View {
                 borderColor: .separator1
             )
         )
-        .disabled(!session.hasAgents)
+        .disabled(!session.hasAgent)
     }
 
     @ViewBuilder

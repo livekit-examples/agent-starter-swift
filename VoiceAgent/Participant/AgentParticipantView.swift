@@ -4,9 +4,8 @@ import LiveKitComponents
 /// or the audio visualizer (if available).
 /// - Note: If both are unavailable, the view will show a placeholder visualizer.
 struct AgentParticipantView: View {
-    @LiveKitSession private var session
-    @LiveKitAgent private var agent
-
+    @EnvironmentObject private var session: Session
+    @Environment(\.agent) private var agent
     @Environment(\.namespace) private var namespace
     /// Reveals the avatar camera view when true.
     @SceneStorage("videoTransition") private var videoTransition = false

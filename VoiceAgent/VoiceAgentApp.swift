@@ -23,6 +23,7 @@ struct VoiceAgentApp: App {
         WindowGroup {
             AppView()
                 .environmentObject(session)
+                .environment(\.agent, session.agent)
                 .environmentObject(LocalMedia(session: session))
         }
         #if os(macOS)

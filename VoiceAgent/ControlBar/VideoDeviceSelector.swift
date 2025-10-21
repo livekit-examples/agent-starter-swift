@@ -5,7 +5,7 @@ import SwiftUI
 #if os(macOS)
 /// A platform-specific view that shows a list of available video devices.
 struct VideoDeviceSelector: View {
-    @LiveKitLocalMedia private var localMedia
+    @EnvironmentObject private var localMedia: LocalMedia
 
     var body: some View {
         Menu {

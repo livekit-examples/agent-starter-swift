@@ -2,7 +2,7 @@ import LiveKitComponents
 
 /// A view that shows the local participant's camera view with flip control.
 struct LocalParticipantView: View {
-    @LiveKitLocalMedia private var localMedia
+    @EnvironmentObject private var localMedia: LocalMedia
 
     @Environment(\.namespace) private var namespace
 
