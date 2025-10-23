@@ -22,14 +22,20 @@ struct AppView: View {
         .environment(\.namespace, namespace)
         #if os(visionOS)
             .ornament(attachmentAnchor: .scene(.bottom)) {
-                if session.isReady {
+                if session.isConnected {
                     ControlBar(chat: $chat)
                         .glassBackgroundEffect()
                 }
             }
             .alert("warning.reconnecting", isPresented: .constant(session.connectionState == .reconnecting)) {}
             .alert(session.error?.localizedDescription ?? "error.title", isPresented: .constant(session.error != nil)) {
-                Button("error.ok") { session.resetError() }
+                Button("error.ok") { session.dismissError() }
+            }
+            .alert(session.agent.error?.localizedDescription ?? "error.title", isPresented: .constant(session.agent.error != nil)) {
+                Button("error.ok") { Task { await session.end() } }
+            }
+            .alert(localMedia.error?.localizedDescription ?? "error.title", isPresented: .constant(localMedia.error != nil)) {
+                Button("error.ok") { localMedia.dismissError() }
             }
         #else
             .safeAreaInset(edge: .bottom) {
@@ -43,8 +49,10 @@ struct AppView: View {
             .animation(.default, value: chat)
             .animation(.default, value: session.isConnected)
             .animation(.default, value: session.error?.localizedDescription)
+            .animation(.default, value: session.agent.error?.localizedDescription)
             .animation(.default, value: localMedia.isCameraEnabled)
             .animation(.default, value: localMedia.isScreenShareEnabled)
+            .animation(.default, value: localMedia.error?.localizedDescription)
         #if os(iOS)
             .sensoryFeedback(.impact, trigger: session.agent.agentState) { $0 == nil && $1 == .listening }
         #endif
@@ -87,7 +95,15 @@ struct AppView: View {
         }
 
         if let error = session.error {
-            ErrorView(error: error) { session.resetError() }
+            ErrorView(error: error) { session.dismissError() }
+        }
+
+        if let agentError = session.agent.error {
+            ErrorView(error: agentError) { Task { await session.end() }}
+        }
+
+        if let mediaError = localMedia.error {
+            ErrorView(error: mediaError) { localMedia.dismissError() }
         }
         #endif
     }
