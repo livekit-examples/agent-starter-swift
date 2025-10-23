@@ -27,7 +27,7 @@ struct VisionInteractionView: View {
 
     @ViewBuilder
     private func agent() -> some View {
-        AgentParticipantView()
+        AgentView()
             .frame(width: 175 * .grid)
             .frame(maxHeight: .infinity)
             .glassBackgroundEffect()

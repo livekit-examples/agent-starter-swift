@@ -39,7 +39,7 @@ struct TextInteractionView: View {
     private func participants() -> some View {
         HStack {
             Spacer()
-            AgentParticipantView()
+            AgentView()
                 .frame(maxWidth: session.agent.avatarVideoTrack != nil ? 50 * .grid : 25 * .grid)
             ScreenShareView()
             LocalParticipantView()

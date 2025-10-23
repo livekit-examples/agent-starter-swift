@@ -110,7 +110,10 @@ struct AppView: View {
                !localMedia.isCameraEnabled,
                !localMedia.isScreenShareEnabled
             {
-                AgentListeningView()
+                Text("agent.listening")
+                    .font(.system(size: 15))
+                    .shimmering()
+                    .transition(.blurReplace)
             }
         }
         .animation(.default, value: session.messages.isEmpty)

@@ -3,7 +3,7 @@ import LiveKitComponents
 /// A view that combines the avatar camera view (if available)
 /// or the audio visualizer (if available).
 /// - Note: If both are unavailable, the view will show a placeholder visualizer.
-struct AgentParticipantView: View {
+struct AgentView: View {
     @EnvironmentObject private var session: Session
 
     @Environment(\.namespace) private var namespace
