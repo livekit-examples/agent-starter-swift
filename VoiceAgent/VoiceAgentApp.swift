@@ -14,7 +14,7 @@ struct VoiceAgentApp: App {
     // - Create .env.xcconfig with your LIVEKIT_SANDBOX_ID
     private static let sandboxId = Bundle.main.object(forInfoDictionaryKey: "LiveKitSandboxId") as! String
 
-    @StateObject private var session = Session(
+    private let session = Session(
         tokenSource: SandboxTokenSource(id: Self.sandboxId),
         options: SessionOptions(room: Room(roomOptions: RoomOptions(defaultScreenShareCaptureOptions: ScreenShareCaptureOptions(useBroadcastExtension: true))))
     )
@@ -23,7 +23,6 @@ struct VoiceAgentApp: App {
         WindowGroup {
             AppView()
                 .environmentObject(session)
-                .environment(\.agent, session.agent)
                 .environmentObject(LocalMedia(session: session))
         }
         #if os(macOS)

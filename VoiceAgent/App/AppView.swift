@@ -11,7 +11,7 @@ struct AppView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            if session.isReady {
+            if session.isConnected {
                 interactions()
             } else {
                 start()
@@ -33,7 +33,7 @@ struct AppView: View {
             }
         #else
             .safeAreaInset(edge: .bottom) {
-                if session.isReady, !keyboardFocus {
+                if session.isConnected, !keyboardFocus {
                     ControlBar(chat: $chat)
                         .transition(.asymmetric(insertion: .move(edge: .bottom).combined(with: .opacity), removal: .opacity))
                 }
@@ -41,12 +41,12 @@ struct AppView: View {
         #endif
             .background(.bg1)
             .animation(.default, value: chat)
-            .animation(.default, value: session.isReady)
+            .animation(.default, value: session.isConnected)
             .animation(.default, value: session.error?.localizedDescription)
             .animation(.default, value: localMedia.isCameraEnabled)
             .animation(.default, value: localMedia.isScreenShareEnabled)
         #if os(iOS)
-            .sensoryFeedback(.impact, trigger: session.isListening) { !$0 && $1 }
+            .sensoryFeedback(.impact, trigger: session.agent.agentState) { $0 == nil && $1 == .listening }
         #endif
     }
 

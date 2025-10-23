@@ -126,7 +126,7 @@ struct ControlBar: View {
             Spacer()
         }
         .frame(width: Constants.buttonWidth)
-        .disabled(!session.hasAgent)
+        .disabled(!session.agent.isConnected)
     }
 
     @ViewBuilder
@@ -146,7 +146,7 @@ struct ControlBar: View {
                 borderColor: .separator1
             )
         )
-        .disabled(!session.hasAgent)
+        .disabled(!session.agent.isConnected)
     }
 
     @ViewBuilder
@@ -166,7 +166,7 @@ struct ControlBar: View {
                 borderColor: .separator1
             )
         )
-        .disabled(!session.hasAgent)
+        .disabled(!session.agent.isConnected)
     }
 
     @ViewBuilder
@@ -186,7 +186,7 @@ struct ControlBar: View {
                 borderColor: .separatorSerious
             )
         )
-        .disabled(session.connectionState == .disconnected)
+        .disabled(!session.isConnected)
     }
 }
 
