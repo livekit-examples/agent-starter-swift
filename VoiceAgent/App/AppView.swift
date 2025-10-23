@@ -90,10 +90,6 @@ struct AppView: View {
     @ViewBuilder
     private func errors() -> some View {
         #if !os(visionOS)
-        if case .reconnecting = session.connectionState {
-            WarningView(warning: "warning.reconnecting")
-        }
-
         if let error = session.error {
             ErrorView(error: error) { session.dismissError() }
         }
