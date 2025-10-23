@@ -27,7 +27,6 @@ struct AppView: View {
                         .glassBackgroundEffect()
                 }
             }
-            .alert("warning.reconnecting", isPresented: .constant(session.connectionState == .reconnecting)) {}
             .alert(session.error?.localizedDescription ?? "error.title", isPresented: .constant(session.error != nil)) {
                 Button("error.ok") { session.dismissError() }
             }

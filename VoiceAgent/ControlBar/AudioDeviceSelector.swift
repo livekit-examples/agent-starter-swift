@@ -1,4 +1,4 @@
-import LiveKitComponents
+import LiveKit
 import SwiftUI
 
 #if os(macOS)

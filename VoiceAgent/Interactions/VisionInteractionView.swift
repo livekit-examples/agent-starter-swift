@@ -10,7 +10,7 @@ struct VisionInteractionView: View {
         HStack {
             participants().rotation3DEffect(.degrees(30), axis: .y, anchor: .trailing)
             agent()
-            chats().rotation3DEffect(.degrees(-30), axis: .y, anchor: .leading)
+            chatView().rotation3DEffect(.degrees(-30), axis: .y, anchor: .leading)
         }
     }
 
@@ -34,7 +34,7 @@ struct VisionInteractionView: View {
     }
 
     @ViewBuilder
-    private func chats() -> some View {
+    private func chatView() -> some View {
         VStack {
             if chat {
                 ChatView()

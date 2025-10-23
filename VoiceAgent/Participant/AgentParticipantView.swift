@@ -5,6 +5,7 @@ import LiveKitComponents
 /// - Note: If both are unavailable, the view will show a placeholder visualizer.
 struct AgentParticipantView: View {
     @EnvironmentObject private var session: Session
+
     @Environment(\.namespace) private var namespace
     /// Reveals the avatar camera view when true.
     @SceneStorage("videoTransition") private var videoTransition = false
