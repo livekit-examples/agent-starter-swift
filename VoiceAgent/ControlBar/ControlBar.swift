@@ -18,17 +18,17 @@ struct ControlBar: View {
     var body: some View {
         HStack(spacing: .zero) {
             biggerSpacer()
-            if AppFeatures.voice {
+            if VoiceAgentApp.Features.voice {
                 audioControls()
                 flexibleSpacer()
             }
-            if AppFeatures.video {
+            if VoiceAgentApp.Features.video {
                 videoControls()
                 flexibleSpacer()
                 screenShareButton()
                 flexibleSpacer()
             }
-            if AppFeatures.text {
+            if VoiceAgentApp.Features.text {
                 textInputButton()
                 flexibleSpacer()
             }

@@ -2,9 +2,12 @@ import LiveKitComponents
 import SwiftUI
 
 struct ChatView: View {
+    @EnvironmentObject private var session: Session
+
     var body: some View {
         ChatScrollView(messageBuilder: message)
             .padding(.horizontal)
+            .animation(.default, value: session.messages)
     }
 
     @ViewBuilder

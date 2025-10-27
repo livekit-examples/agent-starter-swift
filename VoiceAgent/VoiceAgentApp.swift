@@ -1,21 +1,23 @@
 import LiveKit
 import SwiftUI
 
-enum AppFeatures {
-    static let voice = true
-    static let video = true
-    static let text = true
-}
-
 @main
 struct VoiceAgentApp: App {
+    /// Enable or disable input modes in the app based on the supported agent features.
+    enum Features {
+        static let voice = true
+        static let video = true
+        static let text = true
+    }
+
     // To use the LiveKit Cloud sandbox (development only)
     // - Enable your sandbox here https://cloud.livekit.io/projects/p_/sandbox/templates/token-server
     // - Create .env.xcconfig with your LIVEKIT_SANDBOX_ID
     private static let sandboxID = Bundle.main.object(forInfoDictionaryKey: "LiveKitSandboxId") as! String
 
+    /// For production use, replace the `SandboxTokenSource` with an `EndpointTokenSource` or your own `TokenSourceConfigurable` implementation.
     private let session = Session(
-        tokenSource: SandboxTokenSource(id: Self.sandboxID),
+        tokenSource: SandboxTokenSource(id: Self.sandboxID).cached(),
         options: SessionOptions(room: Room(roomOptions: RoomOptions(defaultScreenShareCaptureOptions: ScreenShareCaptureOptions(useBroadcastExtension: true))))
     )
 

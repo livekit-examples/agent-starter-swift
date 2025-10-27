@@ -24,7 +24,7 @@ lk app create --template agent-starter-swift --sandbox <token_server_sandbox_id>
 Then, build and run the app from Xcode by opening `VoiceAgent.xcodeproj`. You may need to adjust your app signing settings to run the app on your device.
 
 > [!NOTE]
-> To setup without the LiveKit CLI, clone the repository and then either create a `VoiceAgent/.env.xcconfig` with a `LIVEKIT_SANDBOX_ID` (if using a [Sandbox Token Server](https://cloud.livekit.io/projects/p_/sandbox/templates/token-server)), or open `TokenService.swift` and add your [manually generated](#token-generation) URL and token.
+> To setup without the LiveKit CLI, clone the repository and then either create a `VoiceAgent/.env.xcconfig` with a `LIVEKIT_SANDBOX_ID` (if using a [Sandbox Token Server](https://cloud.livekit.io/projects/p_/sandbox/templates/token-server)), or modify `VoiceAgent/VoiceAgentApp.swift` to replace the `SandboxTokenSource` with a custom token source implementation.
 
 ## Feature overview
 
@@ -32,9 +32,9 @@ This starter app has support for a number of features of the agents framework, a
 
 ### Text, video, and voice input
 
-This app supports text, video, and/or voice input according to the needs of your agent. To update the features enabled in the app, edit `VoiceAgent/VoiceAgentApp.swift` and update `AgentFeatures.current` to include or exclude the features you need.
+This app supports text, video, and/or voice input according to the needs of your agent. To update the features enabled in the app, edit `VoiceAgent/VoiceAgentApp.swift` and update `Features` to include or exclude the features you need.
 
-By default, only voice and text input are enabled.
+By default, all features (voice, video, and text input) are enabled.
 
 Available input types:
 - `.voice`: Allows the user to speak to the agent using their microphone. **Requires microphone permissions.**
@@ -43,23 +43,23 @@ Available input types:
 
 If you have trouble with screensharing, refer to [the docs](https://docs.livekit.io/home/client/tracks/screenshare/) for more setup instructions.
 
+### Session
+
+The app is built on top of two main observable components from the [LiveKit Swift SDK](https://github.com/livekit/client-sdk-swift):
+- `Session` object to connect to the LiveKit infrastructure, interact with the `Agent`, its local state, and send/receive text messages.
+- `LocalMedia` object to manage the local media tracks (audio, video, screen sharing) and their lifecycle.
+
 ### Preconnect audio buffer
 
-This app uses `withPreConnectAudio` to capture and buffer audio before the room connection completes. This allows the connection to appear "instant" from the user's perspective and makes your app more responsive. To disable this feature, remove the call to `withPreConnectAudio` as below:
-
-- Location: `VoiceAgent/App/AppViewModel.swift` → `connectWithVoice()`
-- To disable preconnect buffering but keep voice:
-  - Replace the `withPreConnectAudio { ... }` block with a standard `room.connect` call and enable the microphone after connect, for example:
-    - Connect with `connectOptions: .init(enableMicrophone: true)` without wrapping in `withPreConnectAudio`, or
-    - Connect with microphone disabled and call `room.localParticipant.setMicrophone(enabled: true)` after connection.
+This app enables `preConnectAudio` by default to capture and buffer audio before the room connection completes. This allows the connection to appear "instant" from the user's perspective and makes your app more responsive. To disable this feature, set `preConnectAudio` to `false` in `SessionOptions` when creating the `Session`.
 
 ### Virtual avatar support
 
-If your agent publishes a [virtual avatar](https://docs.livekit.io/agents/integrations/avatar/), this app will automatically render the avatar’s camera feed in `AgentParticipantView` when available.
+If your agent publishes a [virtual avatar](https://docs.livekit.io/agents/integrations/avatar/), this app will automatically render the avatar's camera feed in `AgentView` when available.
 
 ## Token generation in production
 
-In a production environment, you will be responsible for developing a solution to [generate tokens for your users](https://docs.livekit.io/home/server/generating-tokens/) which is integrated with your authentication solution. You should disable your sandbox token server and modify `TokenService.swift` to use your own token server.
+In a production environment, you will be responsible for developing a solution to [generate tokens for your users](https://docs.livekit.io/home/server/generating-tokens/) which is integrated with your authentication solution. You should replace your `SandboxTokenSource` with an `EndpointTokenSource` or your own `TokenSourceFixed` or `TokenSourceConfigurable` implementation. Additionally, you can use the `.cached()` extension to cache valid tokens and avoid unnecessary token requests.
 
 ## Running on Simulator
 
