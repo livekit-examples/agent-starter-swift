@@ -32,9 +32,15 @@ This starter app has support for a number of features of the agents framework, a
 
 ### Text, video, and voice input
 
-This app supports text, video, and/or voice input according to the needs of your agent. To update the features enabled in the app, edit `VoiceAgent/VoiceAgentApp.swift` and update `Features` to include or exclude the features you need.
+This app supports text, video, and/or voice input according to the needs of your agent. To update the features enabled in the app, edit `VoiceAgent/VoiceAgentApp.swift` and modify the `.environment()` modifiers to enable or disable features.
 
-By default, all features (voice, video, and text input) are enabled.
+By default, all features (voice, video, and text input) are enabled. To disable a feature, change the value from `true` to `false`:
+
+```swift
+.environment(\.voiceEnabled, true)   // Enable voice input
+.environment(\.videoEnabled, false)  // Disable video input
+.environment(\.textEnabled, true)    // Enable text input
+```
 
 Available input types:
 - `.voice`: Allows the user to speak to the agent using their microphone. **Requires microphone permissions.**

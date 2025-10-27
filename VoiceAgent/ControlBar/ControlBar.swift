@@ -9,6 +9,9 @@ struct ControlBar: View {
 
     @Binding var chat: Bool
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.voiceEnabled) private var voiceEnabled
+    @Environment(\.videoEnabled) private var videoEnabled
+    @Environment(\.textEnabled) private var textEnabled
 
     private enum Constants {
         static let buttonWidth: CGFloat = 16 * .grid
@@ -18,17 +21,17 @@ struct ControlBar: View {
     var body: some View {
         HStack(spacing: .zero) {
             biggerSpacer()
-            if VoiceAgentApp.Features.voice {
+            if voiceEnabled {
                 audioControls()
                 flexibleSpacer()
             }
-            if VoiceAgentApp.Features.video {
+            if videoEnabled {
                 videoControls()
                 flexibleSpacer()
                 screenShareButton()
                 flexibleSpacer()
             }
-            if VoiceAgentApp.Features.text {
+            if textEnabled {
                 textInputButton()
                 flexibleSpacer()
             }

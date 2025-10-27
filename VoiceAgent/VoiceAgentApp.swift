@@ -3,13 +3,6 @@ import SwiftUI
 
 @main
 struct VoiceAgentApp: App {
-    /// Enable or disable input modes in the app based on the supported agent features.
-    enum Features {
-        static let voice = true
-        static let video = true
-        static let text = true
-    }
-
     // To use the LiveKit Cloud sandbox (development only)
     // - Enable your sandbox here https://cloud.livekit.io/projects/p_/sandbox/templates/token-server
     // - Create .env.xcconfig with your LIVEKIT_SANDBOX_ID
@@ -26,6 +19,9 @@ struct VoiceAgentApp: App {
             AppView()
                 .environmentObject(session)
                 .environmentObject(LocalMedia(session: session))
+                .environment(\.voiceEnabled, true)
+                .environment(\.videoEnabled, true)
+                .environment(\.textEnabled, true)
         }
         #if os(macOS)
         .defaultSize(width: 900, height: 900)
