@@ -192,7 +192,3 @@ struct ControlBar: View {
         .disabled(!session.isConnected)
     }
 }
-
-#Preview {
-    ControlBar(chat: .constant(false))
-}

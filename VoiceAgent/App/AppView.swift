@@ -119,7 +119,3 @@ struct AppView: View {
         .animation(.default, value: session.messages.isEmpty)
     }
 }
-
-#Preview {
-    AppView()
-}
