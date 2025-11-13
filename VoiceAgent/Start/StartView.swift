@@ -25,17 +25,13 @@ struct StartView: View {
     @ViewBuilder
     private func bars() -> some View {
         HStack(spacing: .grid) {
+            let bars = [2, 8, 12, 8, 2].map { $0 * .grid }
             ForEach(0 ..< 5, id: \.self) { index in
                 Rectangle()
                     .fill(.fg0)
-                    .frame(width: 2 * .grid, height: barHeight(index))
+                    .frame(width: 2 * .grid, height: bars[index])
             }
         }
-    }
-
-    private func barHeight(_ index: Int) -> CGFloat {
-        let heights: [CGFloat] = [2, 8, 12, 8, 2].map { $0 * .grid }
-        return heights[index]
     }
 
     @ViewBuilder
