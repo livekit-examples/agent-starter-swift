@@ -589,16 +589,16 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/livekit/components-swift";
 			requirement = {
-				branch = "blaze/agent-conversation";
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.5;
 			};
 		};
 		B5E1B9102D14E9F500A38CB6 /* XCRemoteSwiftPackageReference "client-sdk-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/livekit/client-sdk-swift";
 			requirement = {
-				branch = "blaze/agent-conversation";
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
