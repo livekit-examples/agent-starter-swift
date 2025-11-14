@@ -39,14 +39,14 @@ struct ChatInputView: View {
         .lineLimit(3)
         .submitLabel(.send)
         .onSubmit {
-            // will be called on macOS/Simulator with hardware keyboard
+            // Will be called on macOS/Simulator with hardware keyboard
             Task {
                 await sendMessage()
             }
         }
-        .onChange(of: messageText.last?.isNewline ?? false) { _, submit in
-            // onSubmit won't be called by the submit key with software keybaord and .vertical TextField
-            if submit {
+        .onChange(of: messageText.last?.isNewline ?? false) { _, forceSubmit in
+            // onSubmit won't be called by the submit key when using a software keyboard with a .vertical TextField
+            if forceSubmit {
                 Task {
                     await sendMessage()
                 }

@@ -73,7 +73,7 @@ struct BlurredTop: ViewModifier {
     }
 }
 
-struct Shimerring: ViewModifier {
+struct Shimmering: ViewModifier {
     @State private var isShimmering = false
 
     func body(content: Content) -> some View {
@@ -103,6 +103,6 @@ extension View {
     }
 
     func shimmering() -> some View {
-        modifier(Shimerring())
+        modifier(Shimmering())
     }
 }
