@@ -8,7 +8,7 @@ struct VoiceAgentApp: App {
     // - Create .env.xcconfig with your LIVEKIT_SANDBOX_ID
     private static let sandboxID = Bundle.main.object(forInfoDictionaryKey: "LiveKitSandboxId") as! String
 
-    /// For production use, replace the `SandboxTokenSource` with an `EndpointTokenSource` or your own `TokenSourceConfigurable` implementation.
+    // For production use, replace the `SandboxTokenSource` with an `EndpointTokenSource` or your own `TokenSourceConfigurable` implementation.
     private let session = Session(
         tokenSource: SandboxTokenSource(id: Self.sandboxID).cached(),
         options: SessionOptions(room: Room(roomOptions: RoomOptions(defaultScreenShareCaptureOptions: ScreenShareCaptureOptions(useBroadcastExtension: true))))

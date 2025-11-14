@@ -38,7 +38,7 @@ struct VisionInteractionView: View {
         VStack {
             if chat {
                 ChatView()
-                ChatTextInputView(keyboardFocus: _keyboardFocus)
+                ChatInputView(keyboardFocus: _keyboardFocus)
             }
         }
         .frame(width: 125 * .grid)

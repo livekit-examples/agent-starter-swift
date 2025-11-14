@@ -31,7 +31,7 @@ struct TextInteractionView: View {
                 keyboardFocus = false
             }
             #endif
-            ChatTextInputView(keyboardFocus: _keyboardFocus)
+            ChatInputView(keyboardFocus: _keyboardFocus)
         }
     }
 
