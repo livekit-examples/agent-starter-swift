@@ -12,7 +12,7 @@ This template is compatible with iOS, iPadOS, macOS, and visionOS and is free fo
 
 First, you'll need a LiveKit agent to speak with. Try our starter agent for [Python](https://github.com/livekit-examples/agent-starter-python), [Node.js](https://github.com/livekit-examples/agent-starter-node), or [create your own from scratch](https://docs.livekit.io/agents/start/voice-ai/).
 
-Second, you need a token sever. The easiest way to set this up is with the [Sandbox for LiveKit Cloud](https://cloud.livekit.io/projects/p_/sandbox) and the [LiveKit CLI](https://docs.livekit.io/home/cli/cli-setup/).
+Second, you need a token server. The easiest way to set this up is with the [Sandbox for LiveKit Cloud](https://cloud.livekit.io/projects/p_/sandbox) and the [LiveKit CLI](https://docs.livekit.io/home/cli/cli-setup/).
 
 First, create a new [Sandbox Token Server](https://cloud.livekit.io/projects/p_/sandbox/templates/token-server) for your LiveKit Cloud project.
 Then, run the following command to automatically clone this template and connect it to LiveKit Cloud. This will create a new Xcode project in the current directory.
@@ -24,11 +24,11 @@ lk app create --template agent-starter-swift --sandbox <token_server_sandbox_id>
 Then, build and run the app from Xcode by opening `VoiceAgent.xcodeproj`. You may need to adjust your app signing settings to run the app on your device.
 
 > [!NOTE]
-> To setup without the LiveKit CLI, clone the repository and then either create a `VoiceAgent/.env.xcconfig` with a `LIVEKIT_SANDBOX_ID` (if using a [Sandbox Token Server](https://cloud.livekit.io/projects/p_/sandbox/templates/token-server)), or modify `VoiceAgent/VoiceAgentApp.swift` to replace the `SandboxTokenSource` with a custom token source implementation.
+> To set up without the LiveKit CLI, clone the repository and then either create a `VoiceAgent/.env.xcconfig` with a `LIVEKIT_SANDBOX_ID` (if using a [Sandbox Token Server](https://cloud.livekit.io/projects/p_/sandbox/templates/token-server)), or modify `VoiceAgent/VoiceAgentApp.swift` to replace the `SandboxTokenSource` with a custom token source implementation.
 
 ## Feature overview
 
-This starter app has support for a number of features of the agents framework, and is configurable to easily enable or disable them in code based on your needs as you adapt this template to your own use case.
+This starter app supports several features of the agents framework and is easily configurable to enable or disable them in code based on your needs as you adapt this template to your own use case.
 
 ### Text, video, and voice input
 
@@ -47,12 +47,12 @@ Available input types:
 - `.text`: Allows the user to type to the agent. See [the docs](https://docs.livekit.io/agents/build/text/) for more details.
 - `.video`: Allows the user to share their camera or screen to the agent. This requires a supported model like the Gemini Live API. See [the docs](https://docs.livekit.io/agents/build/vision/#video) for more details.
 
-If you have trouble with screensharing, refer to [the docs](https://docs.livekit.io/home/client/tracks/screenshare/) for more setup instructions.
+If you have trouble with screen sharing, refer to [the docs](https://docs.livekit.io/home/client/tracks/screenshare/) for more setup instructions.
 
 ### Session
 
 The app is built on top of two main observable components from the [LiveKit Swift SDK](https://github.com/livekit/client-sdk-swift):
-- `Session` object to connect to the LiveKit infrastructure, interact with the `Agent`, its local state, and send/receive text messages.
+- `Session` object to connect to the LiveKit infrastructure, interact with the `Agent` and its local state, and send/receive text messages.
 - `LocalMedia` object to manage the local media tracks (audio, video, screen sharing) and their lifecycle.
 
 ### Preconnect audio buffer
@@ -65,7 +65,7 @@ If your agent publishes a [virtual avatar](https://docs.livekit.io/agents/integr
 
 ## Token generation in production
 
-In a production environment, you will be responsible for developing a solution to [generate tokens for your users](https://docs.livekit.io/home/server/generating-tokens/) which is integrated with your authentication solution. You should replace your `SandboxTokenSource` with an `EndpointTokenSource` or your own `TokenSourceFixed` or `TokenSourceConfigurable` implementation. Additionally, you can use the `.cached()` extension to cache valid tokens and avoid unnecessary token requests.
+In production, you'll need to develop a solution to [generate tokens for your users](https://docs.livekit.io/home/server/generating-tokens/) that integrates with your authentication system. You should replace your `SandboxTokenSource` with an `EndpointTokenSource` or your own `TokenSourceFixed` or `TokenSourceConfigurable` implementation. Additionally, you can use the `.cached()` extension to cache valid tokens and avoid unnecessary token requests.
 
 ## Running on Simulator
 
@@ -73,7 +73,7 @@ To use this template with video (or screen sharing) input, you need to run the a
 
 ## Submitting to the App Store
 
-`LiveKitWebRTC.xcframework` binary framework, which is part of the LiveKit Swift SDK, does not contain DSYMs. Submitting the app to the App Store will result in a following warning:
+`LiveKitWebRTC.xcframework`, which is part of the LiveKit Swift SDK, does not contain dSYMs. Submitting the app to the App Store will result in the following warning:
 
 ```
 The archive did not include a dSYM for the LiveKitWebRTC.framework with the UUIDs [...]. Ensure that the archive's dSYM folder includes a DWARF file for LiveKitWebRTC.framework with the expected UUIDs.
