@@ -22,9 +22,6 @@ jobs:
           - os: macos-26
             xcode: latest
             platform: "iOS Simulator,name=iPhone 17 Pro,OS=26.1"
-          # - os: macos-26
-          #   xcode: latest
-          #   platform: "macOS"
 
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
