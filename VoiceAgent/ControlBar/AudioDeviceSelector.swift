@@ -1,20 +1,20 @@
-import AVFoundation
+import LiveKit
 import SwiftUI
 
 #if os(macOS)
-/// A platform-specific view that shows a list of available video devices.
-struct VideoDeviceSelector: View {
-    @Environment(AppViewModel.self) private var viewModel
+/// A platform-specific view that shows a list of available audio devices.
+struct AudioDeviceSelector: View {
+    @EnvironmentObject private var localMedia: LocalMedia
 
     var body: some View {
         Menu {
-            ForEach(viewModel.videoDevices, id: \.uniqueID) { device in
-                AsyncButton {
-                    await viewModel.select(videoDevice: device)
+            ForEach(localMedia.audioDevices, id: \.deviceId) { device in
+                Button {
+                    localMedia.select(audioDevice: device)
                 } label: {
                     HStack {
-                        Text(device.localizedName)
-                        if device.uniqueID == viewModel.selectedVideoDeviceID {
+                        Text(device.name)
+                        if device.deviceId == localMedia.selectedAudioDeviceID {
                             Image(systemName: "checkmark")
                         }
                     }

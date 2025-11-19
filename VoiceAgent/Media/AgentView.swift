@@ -3,20 +3,20 @@ import LiveKitComponents
 /// A view that combines the avatar camera view (if available)
 /// or the audio visualizer (if available).
 /// - Note: If both are unavailable, the view will show a placeholder visualizer.
-struct AgentParticipantView: View {
-    @Environment(AppViewModel.self) private var viewModel
-    @Environment(\.namespace) private var namespace
+struct AgentView: View {
+    @EnvironmentObject private var session: Session
 
+    @Environment(\.namespace) private var namespace
     /// Reveals the avatar camera view when true.
     @SceneStorage("videoTransition") private var videoTransition = false
 
     var body: some View {
         ZStack {
-            if let avatarCameraTrack = viewModel.avatarCameraTrack {
-                SwiftUIVideoView(avatarCameraTrack)
+            if let avatarVideoTrack = session.agent.avatarVideoTrack {
+                SwiftUIVideoView(avatarVideoTrack)
                     .clipShape(RoundedRectangle(cornerRadius: .cornerRadiusPerPlatform))
-                    .aspectRatio(avatarCameraTrack.aspectRatio, contentMode: .fit)
-                    .padding(.horizontal, avatarCameraTrack.aspectRatio == 1 ? 4 * .grid : .zero)
+                    .aspectRatio(avatarVideoTrack.aspectRatio, contentMode: .fit)
+                    .padding(.horizontal, session.agent.avatarVideoTrack?.aspectRatio == 1 ? 4 * .grid : .zero)
                     .shadow(radius: 20, y: 10)
                     .mask(
                         GeometryReader { proxy in
@@ -31,15 +31,15 @@ struct AgentParticipantView: View {
                     .onAppear {
                         videoTransition = true
                     }
-            } else if let agentAudioTrack = viewModel.agentAudioTrack {
-                BarAudioVisualizer(audioTrack: agentAudioTrack,
-                                   agentState: viewModel.agent?.agentState ?? .listening,
+            } else if let audioTrack = session.agent.audioTrack {
+                BarAudioVisualizer(audioTrack: audioTrack,
+                                   agentState: session.agent.agentState ?? .listening,
                                    barCount: 5,
                                    barSpacingFactor: 0.05,
                                    barMinOpacity: 0.1)
                     .frame(maxWidth: 75 * .grid, maxHeight: 48 * .grid)
                     .transition(.opacity)
-            } else if viewModel.isInteractive {
+            } else if session.isConnected {
                 BarAudioVisualizer(audioTrack: nil,
                                    agentState: .listening,
                                    barCount: 1,
@@ -48,7 +48,7 @@ struct AgentParticipantView: View {
                     .transition(.opacity)
             }
         }
-        .animation(.snappy, value: viewModel.agentAudioTrack?.id)
+        .animation(.snappy, value: session.agent.audioTrack?.id)
         .matchedGeometryEffect(id: "agent", in: namespace!)
     }
 }

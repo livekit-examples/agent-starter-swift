@@ -4,8 +4,14 @@ import LiveKitComponents
 /// Available controls depend on the agent features and the track availability.
 /// - SeeAlso: ``AgentFeatures``
 struct ControlBar: View {
-    @Environment(AppViewModel.self) private var viewModel
+    @EnvironmentObject private var session: Session
+    @EnvironmentObject private var localMedia: LocalMedia
+
+    @Binding var chat: Bool
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.voiceEnabled) private var voiceEnabled
+    @Environment(\.videoEnabled) private var videoEnabled
+    @Environment(\.textEnabled) private var textEnabled
 
     private enum Constants {
         static let buttonWidth: CGFloat = 16 * .grid
@@ -15,17 +21,17 @@ struct ControlBar: View {
     var body: some View {
         HStack(spacing: .zero) {
             biggerSpacer()
-            if viewModel.agentFeatures.contains(.voice) {
+            if voiceEnabled {
                 audioControls()
                 flexibleSpacer()
             }
-            if viewModel.agentFeatures.contains(.video) {
+            if videoEnabled {
                 videoControls()
                 flexibleSpacer()
                 screenShareButton()
                 flexibleSpacer()
             }
-            if viewModel.agentFeatures.contains(.text) {
+            if textEnabled {
                 textInputButton()
                 flexibleSpacer()
             }
@@ -79,14 +85,14 @@ struct ControlBar: View {
     private func audioControls() -> some View {
         HStack(spacing: .zero) {
             Spacer()
-            AsyncButton(action: viewModel.toggleMicrophone) {
+            AsyncButton(action: localMedia.toggleMicrophone) {
                 HStack(spacing: .grid) {
-                    Image(systemName: viewModel.isMicrophoneEnabled ? "microphone.fill" : "microphone.slash.fill")
+                    Image(systemName: localMedia.isMicrophoneEnabled ? "microphone.fill" : "microphone.slash.fill")
                         .transition(.symbolEffect)
-                    BarAudioVisualizer(audioTrack: viewModel.audioTrack, barColor: .fg1, barCount: 3, barSpacingFactor: 0.1)
+                    BarAudioVisualizer(audioTrack: localMedia.microphoneTrack, barColor: .fg1, barCount: 3, barSpacingFactor: 0.1)
                         .frame(width: 2 * .grid, height: 0.5 * Constants.buttonHeight)
                         .frame(maxHeight: .infinity)
-                        .id(viewModel.audioTrack?.id)
+                        .id(localMedia.microphoneTrack?.id)
                 }
                 .frame(height: Constants.buttonHeight)
                 .padding(.horizontal, 2 * .grid)
@@ -106,8 +112,10 @@ struct ControlBar: View {
     private func videoControls() -> some View {
         HStack(spacing: .zero) {
             Spacer()
-            AsyncButton(action: viewModel.toggleCamera) {
-                Image(systemName: viewModel.isCameraEnabled ? "video.fill" : "video.slash.fill")
+            AsyncButton {
+                await localMedia.toggleCamera(disableScreenShare: true)
+            } label: {
+                Image(systemName: localMedia.isCameraEnabled ? "video.fill" : "video.slash.fill")
                     .transition(.symbolEffect)
                     .frame(height: Constants.buttonHeight)
                     .padding(.horizontal, 2 * .grid)
@@ -121,48 +129,55 @@ struct ControlBar: View {
             Spacer()
         }
         .frame(width: Constants.buttonWidth)
-        .disabled(viewModel.agent == nil)
+        .disabled(!session.agent.isConnected)
     }
 
     @ViewBuilder
     private func screenShareButton() -> some View {
-        AsyncButton(action: viewModel.toggleScreenShare) {
+        AsyncButton {
+            await localMedia.toggleScreenShare(disableCamera: true)
+        } label: {
             Image(systemName: "arrow.up.square.fill")
                 .frame(width: Constants.buttonWidth, height: Constants.buttonHeight)
                 .contentShape(Rectangle())
         }
         .buttonStyle(
             ControlBarButtonStyle(
-                isToggled: viewModel.isScreenShareEnabled,
+                isToggled: localMedia.isScreenShareEnabled,
                 foregroundColor: .fg1,
                 backgroundColor: .bg2,
                 borderColor: .separator1
             )
         )
-        .disabled(viewModel.agent == nil)
+        .disabled(!session.agent.isConnected)
     }
 
     @ViewBuilder
     private func textInputButton() -> some View {
-        AsyncButton(action: viewModel.toggleTextInput) {
+        Button {
+            chat.toggle()
+        } label: {
             Image(systemName: "ellipsis.message.fill")
                 .frame(width: Constants.buttonWidth, height: Constants.buttonHeight)
                 .contentShape(Rectangle())
         }
         .buttonStyle(
             ControlBarButtonStyle(
-                isToggled: viewModel.interactionMode == .text,
+                isToggled: chat,
                 foregroundColor: .fg1,
                 backgroundColor: .bg2,
                 borderColor: .separator1
             )
         )
-        .disabled(viewModel.agent == nil)
+        .disabled(!session.agent.isConnected)
     }
 
     @ViewBuilder
     private func disconnectButton() -> some View {
-        AsyncButton(action: viewModel.disconnect) {
+        AsyncButton {
+            await session.end()
+            session.restoreMessageHistory([])
+        } label: {
             Image(systemName: "phone.down.fill")
                 .frame(width: Constants.buttonWidth, height: Constants.buttonHeight)
                 .contentShape(Rectangle())
@@ -174,11 +189,6 @@ struct ControlBar: View {
                 borderColor: .separatorSerious
             )
         )
-        .disabled(viewModel.connectionState == .disconnected)
+        .disabled(!session.isConnected)
     }
-}
-
-#Preview {
-    ControlBar()
-        .environment(AppViewModel())
 }

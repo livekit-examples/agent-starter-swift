@@ -1,10 +1,11 @@
+import LiveKitComponents
 import SwiftUI
 
 /// The initial view that is shown when the app is not connected to the server.
 struct StartView: View {
-    @Environment(AppViewModel.self) private var viewModel
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @EnvironmentObject private var session: Session
 
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Namespace private var button
 
     var body: some View {
@@ -24,17 +25,13 @@ struct StartView: View {
     @ViewBuilder
     private func bars() -> some View {
         HStack(spacing: .grid) {
+            let bars = [2, 8, 12, 8, 2].map { $0 * .grid }
             ForEach(0 ..< 5, id: \.self) { index in
                 Rectangle()
                     .fill(.fg0)
-                    .frame(width: 2 * .grid, height: barHeight(index))
+                    .frame(width: 2 * .grid, height: bars[index])
             }
         }
-    }
-
-    private func barHeight(_ index: Int) -> CGFloat {
-        let heights: [CGFloat] = [2, 8, 12, 8, 2].map { $0 * .grid }
-        return heights[index]
     }
 
     @ViewBuilder
@@ -55,7 +52,9 @@ struct StartView: View {
 
     @ViewBuilder
     private func connectButton() -> some View {
-        AsyncButton(action: viewModel.connect) {
+        AsyncButton {
+            await session.start()
+        } label: {
             HStack {
                 Spacer()
                 Text("connect.start")
@@ -85,5 +84,4 @@ struct StartView: View {
 
 #Preview {
     StartView()
-        .environment(AppViewModel())
 }

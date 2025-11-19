@@ -24,7 +24,7 @@ struct VoiceInteractionView: View {
         HStack {
             Spacer()
                 .frame(width: 50 * .grid)
-            AgentParticipantView()
+            AgentView()
             VStack {
                 Spacer()
                 ScreenShareView()
@@ -39,7 +39,7 @@ struct VoiceInteractionView: View {
     @ViewBuilder
     private func compact() -> some View {
         ZStack(alignment: .bottom) {
-            AgentParticipantView()
+            AgentView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea()
             HStack {

@@ -1,12 +1,12 @@
+import LiveKitComponents
 import SwiftUI
 
 /// A multiplatform view that shows the chat input text field and send button.
-struct ChatTextInputView: View {
-    @Environment(ChatViewModel.self) private var chatViewModel
+struct ChatInputView: View {
+    @EnvironmentObject private var session: Session
+
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-
     @FocusState.Binding var keyboardFocus: Bool
-
     @State private var messageText = ""
 
     var body: some View {
@@ -39,14 +39,14 @@ struct ChatTextInputView: View {
         .lineLimit(3)
         .submitLabel(.send)
         .onSubmit {
-            // will be called on macOS/Simulator with hardware keyboard
+            // Will be called on macOS/Simulator with hardware keyboard
             Task {
                 await sendMessage()
             }
         }
-        .onChange(of: messageText.last?.isNewline ?? false) { _, submit in
-            // onSubmit won't be called by the submit key with software keybaord and .vertical TextField
-            if submit {
+        .onChange(of: messageText.last?.isNewline ?? false) { _, forceSubmit in
+            // onSubmit won't be called by the submit key when using a software keyboard with a .vertical TextField
+            if forceSubmit {
                 Task {
                     await sendMessage()
                 }
@@ -82,12 +82,6 @@ struct ChatTextInputView: View {
         let text = messageText
         messageText = ""
         keyboardFocus = false
-        await chatViewModel.sendMessage(text)
+        await session.send(text: text)
     }
-}
-
-#Preview {
-    @FocusState var focus
-    ChatTextInputView(keyboardFocus: $focus)
-        .environment(ChatViewModel())
 }

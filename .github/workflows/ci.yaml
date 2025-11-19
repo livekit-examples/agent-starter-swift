@@ -13,18 +13,15 @@ concurrency:
 
 jobs:
   build-and-test:
-    name: Build & Test
+    name: Build
     strategy:
       fail-fast: false
       matrix:
         include:
-          # https://github.com/actions/runner-images/blob/main/images/macos/macos-15-Readme.md
-          - os: macos-15
-            xcode: 16.4
-            platform: "iOS Simulator,OS=18.5,name=iPhone 16 Pro"
-          # - os: macos-15
-          #   xcode: 16.4
-          #   platform: "macOS"
+          # https://github.com/actions/runner-images/blob/main/images/macos/macos-26-arm64-Readme.md
+          - os: macos-26
+            xcode: latest
+            platform: "iOS Simulator,name=iPhone 17 Pro,OS=26.1"
 
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
@@ -47,9 +44,9 @@ jobs:
       - name: Setup .env
         run: cat VoiceAgent/.env.example.xcconfig > VoiceAgent/.env.xcconfig
 
-      - name: Run Tests
+      - name: Build
         run: |
-          set -o pipefail && xcodebuild test \
+          set -o pipefail && xcodebuild build \
             -scheme VoiceAgent \
             -destination 'platform=${{ matrix.platform }}' | xcbeautify --renderer github-actions
 

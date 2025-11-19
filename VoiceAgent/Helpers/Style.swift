@@ -60,3 +60,49 @@ struct ControlBarButtonStyle: ButtonStyle {
             )
     }
 }
+
+struct BlurredTop: ViewModifier {
+    func body(content: Content) -> some View {
+        content.mask(
+            LinearGradient(
+                gradient: Gradient(colors: [.clear, .black, .black]),
+                startPoint: .top,
+                endPoint: .init(x: 0.5, y: 0.2)
+            )
+        )
+    }
+}
+
+struct Shimmering: ViewModifier {
+    @State private var isShimmering = false
+
+    func body(content: Content) -> some View {
+        content
+            .mask(
+                LinearGradient(
+                    colors: [
+                        .black.opacity(0.4),
+                        .black,
+                        .black,
+                        .black.opacity(0.4),
+                    ],
+                    startPoint: isShimmering ? UnitPoint(x: 1, y: 0) : UnitPoint(x: -1, y: 0),
+                    endPoint: isShimmering ? UnitPoint(x: 2, y: 0) : UnitPoint(x: 0, y: 0)
+                )
+                .animation(.linear(duration: 2).repeatForever(autoreverses: false), value: isShimmering)
+            )
+            .onAppear {
+                isShimmering = true
+            }
+    }
+}
+
+extension View {
+    func blurredTop() -> some View {
+        modifier(BlurredTop())
+    }
+
+    func shimmering() -> some View {
+        modifier(Shimmering())
+    }
+}

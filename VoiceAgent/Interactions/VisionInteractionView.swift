@@ -3,14 +3,14 @@ import SwiftUI
 #if os(visionOS)
 /// A platform-specific view that shows all interaction controls with optional chat.
 struct VisionInteractionView: View {
-    @Environment(AppViewModel.self) private var viewModel
+    var chat: Bool
     @FocusState.Binding var keyboardFocus: Bool
 
     var body: some View {
         HStack {
             participants().rotation3DEffect(.degrees(30), axis: .y, anchor: .trailing)
             agent()
-            chat().rotation3DEffect(.degrees(-30), axis: .y, anchor: .leading)
+            chatView().rotation3DEffect(.degrees(-30), axis: .y, anchor: .leading)
         }
     }
 
@@ -27,18 +27,18 @@ struct VisionInteractionView: View {
 
     @ViewBuilder
     private func agent() -> some View {
-        AgentParticipantView()
+        AgentView()
             .frame(width: 175 * .grid)
             .frame(maxHeight: .infinity)
             .glassBackgroundEffect()
     }
 
     @ViewBuilder
-    private func chat() -> some View {
+    private func chatView() -> some View {
         VStack {
-            if case .text = viewModel.interactionMode {
+            if chat {
                 ChatView()
-                ChatTextInputView(keyboardFocus: _keyboardFocus)
+                ChatInputView(keyboardFocus: _keyboardFocus)
             }
         }
         .frame(width: 125 * .grid)

@@ -1,13 +1,13 @@
 {
-  "originHash" : "d987b5e27f8fa5177a889ee0326d513cc75797f11c5470fe6d855b2026723d09",
+  "originHash" : "6839f4bd29f2adb3d0e40e187448c3f9297ddd0401edecacf2e4f96cbdeff01d",
   "pins" : [
     {
       "identity" : "client-sdk-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/livekit/client-sdk-swift",
       "state" : {
-        "revision" : "77b00169920283acd795e46c659ceefc9e4a666e",
-        "version" : "2.7.1"
+        "revision" : "dbe9ba67ae033d2961a7aa675afbee121c313fe8",
+        "version" : "2.10.0"
       }
     },
     {
@@ -15,8 +15,26 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/livekit/components-swift",
       "state" : {
-        "revision" : "f756f3696f4a9b208430e0e239ee7b7b337222ce",
-        "version" : "0.1.5"
+        "revision" : "505df05de019c7ce1b2a3cdcb8463de389b56788",
+        "version" : "0.1.6"
+      }
+    },
+    {
+      "identity" : "jwt-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/jwt-kit.git",
+      "state" : {
+        "revision" : "13e7513b3ba0afa13967daf77af2fb4ad087306c",
+        "version" : "4.13.5"
+      }
+    },
+    {
+      "identity" : "swift-asn1",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-asn1.git",
+      "state" : {
+        "revision" : "40d25bbb2fc5b557a9aa8512210bded327c0f60d",
+        "version" : "1.5.0"
       }
     },
     {
@@ -29,12 +47,12 @@
       }
     },
     {
-      "identity" : "swift-log",
+      "identity" : "swift-crypto",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-log.git",
+      "location" : "https://github.com/apple/swift-crypto.git",
       "state" : {
-        "revision" : "ce592ae52f982c847a4efc0dd881cc9eb32d29f2",
-        "version" : "1.6.4"
+        "revision" : "95ba0316a9b733e92bb6b071255ff46263bbe7dc",
+        "version" : "3.15.1"
       }
     },
     {
@@ -51,8 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/livekit/webrtc-xcframework.git",
       "state" : {
-        "revision" : "609aa5e7dd818ba85eb483153b572fd698785a40",
-        "version" : "137.7151.4"
+        "revision" : "5b40f56c637369064b9c82e8f9cfa820f942658f",
+        "version" : "137.7151.10"
       }
     }
   ],
