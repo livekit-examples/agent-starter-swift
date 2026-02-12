@@ -36,8 +36,8 @@ struct StartView: View {
     private func tip() -> some View {
         VStack(spacing: 2 * .grid) {
             #if targetEnvironment(simulator)
-            Text("connect.simulator")
-                .foregroundStyle(.fgModerate)
+                Text("connect.simulator")
+                    .foregroundStyle(.fgModerate)
             #endif
             Text("connect.tip")
                 .foregroundStyle(.fg3)

@@ -95,9 +95,9 @@ struct ControlBar: View {
                 .contentShape(Rectangle())
             }
             #if os(macOS)
-            separator()
-            AudioDeviceSelector()
-                .frame(height: Constants.buttonHeight)
+                separator()
+                AudioDeviceSelector()
+                    .frame(height: Constants.buttonHeight)
             #endif
             Spacer()
         }
@@ -117,9 +117,9 @@ struct ControlBar: View {
                     .contentShape(Rectangle())
             }
             #if os(macOS)
-            separator()
-            VideoDeviceSelector()
-                .frame(height: Constants.buttonHeight)
+                separator()
+                VideoDeviceSelector()
+                    .frame(height: Constants.buttonHeight)
             #endif
             Spacer()
         }
