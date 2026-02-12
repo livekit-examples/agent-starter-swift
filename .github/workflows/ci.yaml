@@ -13,13 +13,14 @@ concurrency:
 
 jobs:
   build-and-test:
-    name: Build (iOS/macOS)
+    name: Build
     strategy:
       fail-fast: false
       matrix:
         include:
-          - platform: "iOS Simulator,name=iPhone 17 Pro,OS=26.1"
           - platform: "macOS"
+          - platform: "iOS Simulator,name=iPhone 17 Pro,OS=26.1"
+          - platform: "visionOS Simulator,name=Apple Vision Pro,OS=26.1"
 
     runs-on: macos-26
     timeout-minutes: 30
