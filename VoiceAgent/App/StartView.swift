@@ -22,7 +22,6 @@ struct StartView: View {
         #endif
     }
 
-    @ViewBuilder
     private func bars() -> some View {
         HStack(spacing: .grid) {
             let bars = [2, 8, 12, 8, 2].map { $0 * .grid }
@@ -34,12 +33,11 @@ struct StartView: View {
         }
     }
 
-    @ViewBuilder
     private func tip() -> some View {
         VStack(spacing: 2 * .grid) {
             #if targetEnvironment(simulator)
-            Text("connect.simulator")
-                .foregroundStyle(.fgModerate)
+                Text("connect.simulator")
+                    .foregroundStyle(.fgModerate)
             #endif
             Text("connect.tip")
                 .foregroundStyle(.fg3)

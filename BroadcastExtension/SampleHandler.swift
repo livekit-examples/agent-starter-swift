@@ -1,7 +1,9 @@
 #if os(iOS)
-import LiveKit
+    import LiveKit
 
-nonisolated class SampleHandler: LKSampleHandler, @unchecked Sendable {
-    override var enableLogging: Bool { true }
-}
+    nonisolated class SampleHandler: LKSampleHandler, @unchecked Sendable {
+        override var enableLogging: Bool {
+            true
+        }
+    }
 #endif

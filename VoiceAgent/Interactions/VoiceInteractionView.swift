@@ -19,7 +19,6 @@ struct VoiceInteractionView: View {
         }
     }
 
-    @ViewBuilder
     private func regular() -> some View {
         HStack {
             Spacer()
@@ -36,7 +35,6 @@ struct VoiceInteractionView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
-    @ViewBuilder
     private func compact() -> some View {
         ZStack(alignment: .bottom) {
             AgentView()
