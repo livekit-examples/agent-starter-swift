@@ -62,26 +62,22 @@ struct ControlBar: View {
         #endif
     }
 
-    @ViewBuilder
     private func flexibleSpacer() -> some View {
         Spacer()
             .frame(maxWidth: horizontalSizeClass == .regular ? 8 * .grid : 2 * .grid)
     }
 
-    @ViewBuilder
     private func biggerSpacer() -> some View {
         Spacer()
             .frame(maxWidth: horizontalSizeClass == .regular ? 8 * .grid : .infinity)
     }
 
-    @ViewBuilder
     private func separator() -> some View {
         Rectangle()
             .fill(.separator1)
             .frame(width: 1, height: 3 * .grid)
     }
 
-    @ViewBuilder
     private func audioControls() -> some View {
         HStack(spacing: .zero) {
             Spacer()
@@ -108,7 +104,6 @@ struct ControlBar: View {
         .frame(width: Constants.buttonWidth)
     }
 
-    @ViewBuilder
     private func videoControls() -> some View {
         HStack(spacing: .zero) {
             Spacer()
@@ -132,7 +127,6 @@ struct ControlBar: View {
         .disabled(!session.agent.isConnected)
     }
 
-    @ViewBuilder
     private func screenShareButton() -> some View {
         AsyncButton {
             await localMedia.toggleScreenShare(disableCamera: true)
@@ -152,7 +146,6 @@ struct ControlBar: View {
         .disabled(!session.agent.isConnected)
     }
 
-    @ViewBuilder
     private func textInputButton() -> some View {
         Button {
             chat.toggle()
@@ -172,7 +165,6 @@ struct ControlBar: View {
         .disabled(!session.agent.isConnected)
     }
 
-    @ViewBuilder
     private func disconnectButton() -> some View {
         AsyncButton {
             await session.end()

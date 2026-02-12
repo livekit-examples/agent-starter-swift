@@ -2,6 +2,8 @@
 import LiveKit
 
 nonisolated class SampleHandler: LKSampleHandler, @unchecked Sendable {
-    override var enableLogging: Bool { true }
+    override var enableLogging: Bool {
+        true
+    }
 }
 #endif

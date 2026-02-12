@@ -10,7 +10,6 @@ struct ChatView: View {
             .animation(.default, value: session.messages)
     }
 
-    @ViewBuilder
     private func message(_ message: ReceivedMessage) -> some View {
         ZStack {
             switch message.content {
@@ -22,7 +21,6 @@ struct ChatView: View {
         }
     }
 
-    @ViewBuilder
     private func userTranscript(_ text: String) -> some View {
         HStack {
             Spacer(minLength: 4 * .grid)
@@ -38,7 +36,6 @@ struct ChatView: View {
         }
     }
 
-    @ViewBuilder
     private func agentTranscript(_ text: String) -> some View {
         HStack {
             Text(text.trimmingCharacters(in: .whitespacesAndNewlines))

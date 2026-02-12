@@ -57,7 +57,6 @@ struct AppView: View {
         #endif
     }
 
-    @ViewBuilder
     private func start() -> some View {
         StartView()
             .onAppear {
@@ -103,7 +102,6 @@ struct AppView: View {
         #endif
     }
 
-    @ViewBuilder
     private func agentListening() -> some View {
         ZStack {
             if session.messages.isEmpty,

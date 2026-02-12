@@ -14,7 +14,6 @@ struct VisionInteractionView: View {
         }
     }
 
-    @ViewBuilder
     private func participants() -> some View {
         VStack {
             Spacer()
@@ -25,7 +24,6 @@ struct VisionInteractionView: View {
         .frame(width: 125 * .grid)
     }
 
-    @ViewBuilder
     private func agent() -> some View {
         AgentView()
             .frame(width: 175 * .grid)
@@ -33,7 +31,6 @@ struct VisionInteractionView: View {
             .glassBackgroundEffect()
     }
 
-    @ViewBuilder
     private func chatView() -> some View {
         VStack {
             if chat {

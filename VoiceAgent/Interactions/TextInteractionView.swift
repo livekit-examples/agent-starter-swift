@@ -35,7 +35,6 @@ struct TextInteractionView: View {
         }
     }
 
-    @ViewBuilder
     private func participants() -> some View {
         HStack {
             Spacer()
