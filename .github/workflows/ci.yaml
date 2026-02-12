@@ -13,17 +13,15 @@ concurrency:
 
 jobs:
   build-and-test:
-    name: Build
+    name: Build (iOS/macOS)
     strategy:
       fail-fast: false
       matrix:
         include:
-          # https://github.com/actions/runner-images/blob/main/images/macos/macos-26-arm64-Readme.md
-          - os: macos-26
-            xcode: latest
-            platform: "iOS Simulator,name=iPhone 17 Pro,OS=26.1"
+          - platform: "iOS Simulator,name=iPhone 17 Pro,OS=26.1"
+          - platform: "macOS"
 
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-26
     timeout-minutes: 30
     defaults:
       run:
@@ -33,7 +31,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: ${{ matrix.xcode }}
+          xcode-version: 26.1
 
       - name: Xcode Version
         run: xcodebuild -version
@@ -48,7 +46,10 @@ jobs:
         run: |
           set -o pipefail && xcodebuild build \
             -scheme VoiceAgent \
-            -destination 'platform=${{ matrix.platform }}' | xcbeautify --renderer github-actions
+            -destination 'platform=${{ matrix.platform }}' \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_IDENTITY= | xcbeautify --renderer github-actions
 
   lint:
     name: Lint
