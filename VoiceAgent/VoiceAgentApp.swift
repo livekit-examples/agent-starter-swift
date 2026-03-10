@@ -4,7 +4,7 @@ import SwiftUI
 @main
 struct VoiceAgentApp: App {
     /// To use the LiveKit Cloud sandbox (development only):
-    /// - Enable the token server from your project's Options at the Settings page: https://cloud.livekit.io/projects/p_/settings/project
+    /// - Enable the token server from your project's Options on the Settings page: https://cloud.livekit.io/projects/p_/settings/project
     /// - Create a .env.xcconfig file with your LIVEKIT_SANDBOX_ID
     private static let sandboxID = Bundle.main.object(forInfoDictionaryKey: "LiveKitSandboxId") as! String
 
