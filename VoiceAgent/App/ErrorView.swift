@@ -37,5 +37,8 @@ struct ErrorView: View {
 }
 
 #Preview {
-    ErrorView(error: NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Sample error message"]), onDismiss: {})
+    ErrorView(
+        error: NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Sample error message"]),
+        onDismiss: {}
+    )
 }

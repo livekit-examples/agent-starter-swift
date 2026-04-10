@@ -44,7 +44,10 @@ struct TextInteractionView: View {
             LocalParticipantView()
             Spacer()
         }
-        .frame(height: localMedia.isCameraEnabled || localMedia.isScreenShareEnabled || session.agent.avatarVideoTrack != nil ? 50 * .grid : 25 * .grid)
+        .frame(
+            height: localMedia.isCameraEnabled || localMedia.isScreenShareEnabled
+                || session.agent.avatarVideoTrack != nil ? 50 * .grid : 25 * .grid
+        )
         .safeAreaPadding()
     }
 }

@@ -4,14 +4,20 @@ import SwiftUI
 @main
 struct VoiceAgentApp: App {
     /// To use the LiveKit Cloud sandbox (development only):
-    /// - Enable the token server from your project's Options on the Settings page: https://cloud.livekit.io/projects/p_/settings/project
+    /// - Enable the token server from your project's Options on the
+    ///   Settings page: https://cloud.livekit.io/projects/p_/settings/project
     /// - Create a .env.xcconfig file with your LIVEKIT_SANDBOX_ID
-    private static let sandboxID = Bundle.main.object(forInfoDictionaryKey: "LiveKitSandboxId") as! String
+    private static let sandboxID = Bundle.main.object(
+        forInfoDictionaryKey: "LiveKitSandboxId"
+    ) as? String ?? ""
 
-    /// For production, replace the `SandboxTokenSource` with an `EndpointTokenSource` or your own `TokenSourceConfigurable` implementation.
+    /// For production, replace the `SandboxTokenSource` with an
+    /// `EndpointTokenSource` or your own `TokenSourceConfigurable`.
     private let session = Session(
         tokenSource: SandboxTokenSource(id: Self.sandboxID).cached(),
-        options: SessionOptions(room: Room(roomOptions: RoomOptions(defaultScreenShareCaptureOptions: ScreenShareCaptureOptions(useBroadcastExtension: true))))
+        options: SessionOptions(room: Room(roomOptions: RoomOptions(
+            defaultScreenShareCaptureOptions: ScreenShareCaptureOptions(useBroadcastExtension: true)
+        )))
     )
 
     var body: some Scene {
