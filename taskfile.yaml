@@ -8,6 +8,6 @@ tasks:
   post_create:
     desc: "Runs after this template is instantiated as a Sandbox or Bootstrap"
     cmds:
-      - echo -e "\nYour Swift Voice Agent is ready to go!\n"
-      - echo -e "To give it a try, open the VoiceAgent.xcodeproj file in Xcode and run the app."
-      - echo -e "\nFor more help, view your project's README.md file or join our Slack community at https://livekit.io/join-slack."
+      - echo "Your Swift Voice Agent is ready to go!"
+      - echo "To give it a try, open the VoiceAgent.xcodeproj file in Xcode and run the app."
+      - echo "For more help view your project's README.md file or join our Discourse community at https://community.livekit.io."
