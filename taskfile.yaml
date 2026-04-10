@@ -1,5 +1,4 @@
 version: "3"
-output: interleaved
 
 vars:
   env_file: "VoiceAgent/.env.xcconfig"
