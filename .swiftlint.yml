@@ -1,0 +1,5 @@
+disabled_rules:
+  # SwiftFormat conflicts
+  - trailing_comma
+  - line_length
+  - opening_brace

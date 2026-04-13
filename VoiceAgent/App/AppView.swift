@@ -30,17 +30,26 @@ struct AppView: View {
             .alert(session.error?.localizedDescription ?? "error.title", isPresented: .constant(session.error != nil)) {
                 Button("error.ok") { session.dismissError() }
             }
-            .alert(session.agent.error?.localizedDescription ?? "error.title", isPresented: .constant(session.agent.error != nil)) {
+            .alert(
+                session.agent.error?.localizedDescription ?? "error.title",
+                isPresented: .constant(session.agent.error != nil)
+            ) {
                 Button("error.ok") { Task { await session.end() } }
             }
-            .alert(localMedia.error?.localizedDescription ?? "error.title", isPresented: .constant(localMedia.error != nil)) {
+            .alert(
+                localMedia.error?.localizedDescription ?? "error.title",
+                isPresented: .constant(localMedia.error != nil)
+            ) {
                 Button("error.ok") { localMedia.dismissError() }
             }
         #else
             .safeAreaInset(edge: .bottom) {
                     if session.isConnected, !keyboardFocus {
                         ControlBar(chat: $chat)
-                            .transition(.asymmetric(insertion: .move(edge: .bottom).combined(with: .opacity), removal: .opacity))
+                            .transition(.asymmetric(
+                                insertion: .move(edge: .bottom).combined(with: .opacity),
+                                removal: .opacity
+                            ))
                     }
                 }
         #endif

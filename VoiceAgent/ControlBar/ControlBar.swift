@@ -85,10 +85,15 @@ struct ControlBar: View {
                 HStack(spacing: .grid) {
                     Image(systemName: localMedia.isMicrophoneEnabled ? "microphone.fill" : "microphone.slash.fill")
                         .transition(.symbolEffect)
-                    BarAudioVisualizer(audioTrack: localMedia.microphoneTrack, barColor: .fg1, barCount: 3, barSpacingFactor: 0.1)
-                        .frame(width: 2 * .grid, height: 0.5 * Constants.buttonHeight)
-                        .frame(maxHeight: .infinity)
-                        .id(localMedia.microphoneTrack?.id)
+                    BarAudioVisualizer(
+                        audioTrack: localMedia.microphoneTrack,
+                        barColor: .fg1,
+                        barCount: 3,
+                        barSpacingFactor: 0.1
+                    )
+                    .frame(width: 2 * .grid, height: 0.5 * Constants.buttonHeight)
+                    .frame(maxHeight: .infinity)
+                    .id(localMedia.microphoneTrack?.id)
                 }
                 .frame(height: Constants.buttonHeight)
                 .padding(.horizontal, 2 * .grid)
