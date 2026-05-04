@@ -19,8 +19,8 @@ jobs:
       matrix:
         include:
           - platform: "macOS"
-          - platform: "iOS Simulator,name=iPhone 17 Pro,OS=26.4"
-          - platform: "visionOS Simulator,name=Apple Vision Pro,OS=26.4"
+          - platform: "iOS Simulator,name=iPhone 17 Pro,OS=26.4.1"
+          - platform: "visionOS Simulator,name=Apple Vision Pro,OS=26.4.1"
 
     runs-on: macos-26
     timeout-minutes: 30
