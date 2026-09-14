@@ -44,23 +44,23 @@ struct AppView: View {
             }
         #else
             .safeAreaInset(edge: .bottom) {
-                    if session.isConnected, !keyboardFocus {
-                        ControlBar(chat: $chat)
-                            .transition(.asymmetric(
-                                insertion: .move(edge: .bottom).combined(with: .opacity),
-                                removal: .opacity
-                            ))
-                    }
+                if session.isConnected, !keyboardFocus {
+                    ControlBar(chat: $chat)
+                        .transition(.asymmetric(
+                            insertion: .move(edge: .bottom).combined(with: .opacity),
+                            removal: .opacity
+                        ))
                 }
+            }
         #endif
-                .background(.bg1)
-                .animation(.default, value: chat)
-                .animation(.default, value: session.isConnected)
-                .animation(.default, value: session.error?.localizedDescription)
-                .animation(.default, value: session.agent.error?.localizedDescription)
-                .animation(.default, value: localMedia.isCameraEnabled)
-                .animation(.default, value: localMedia.isScreenShareEnabled)
-                .animation(.default, value: localMedia.error?.localizedDescription)
+            .background(.bg1)
+            .animation(.default, value: chat)
+            .animation(.default, value: session.isConnected)
+            .animation(.default, value: session.error?.localizedDescription)
+            .animation(.default, value: session.agent.error?.localizedDescription)
+            .animation(.default, value: localMedia.isCameraEnabled)
+            .animation(.default, value: localMedia.isScreenShareEnabled)
+            .animation(.default, value: localMedia.error?.localizedDescription)
         #if os(iOS)
             .sensoryFeedback(.impact, trigger: session.isConnected)
         #endif
