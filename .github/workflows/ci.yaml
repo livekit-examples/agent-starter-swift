@@ -22,10 +22,10 @@ jobs:
       matrix:
         include:
           - platform: "macOS"
-          - platform: "iOS Simulator,name=iPhone 17 Pro,OS=26.5"
-          - platform: "visionOS Simulator,name=Apple Vision Pro,OS=26.5"
+          - platform: "iOS Simulator,name=iPhone 18 Pro,OS=27.0"
+          - platform: "visionOS Simulator,name=Apple Vision Pro,OS=27.0"
 
-    runs-on: macos-26
+    runs-on: xcode-27
     timeout-minutes: 30
     defaults:
       run:
@@ -35,7 +35,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: 26.5
+          xcode-version: latest
 
       - name: Xcode Version
         run: xcodebuild -version

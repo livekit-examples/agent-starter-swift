@@ -51,7 +51,6 @@ struct StartView: View {
         .safeAreaPadding(.vertical)
     }
 
-    @ViewBuilder
     private func connectButton() -> some View {
         AsyncButton {
             await session.start()
