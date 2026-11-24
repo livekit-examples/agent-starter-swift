@@ -24,7 +24,6 @@ struct ChatInputView: View {
             .safeAreaPadding(.bottom, 4 * .grid)
     }
 
-    @ViewBuilder
     private func textField() -> some View {
         TextField("message.placeholder", text: $messageText, axis: .vertical)
         #if os(iOS)
@@ -58,7 +57,6 @@ struct ChatInputView: View {
         .padding()
     }
 
-    @ViewBuilder
     private func sendButton() -> some View {
         AsyncButton(action: sendMessage) {
             Image(systemName: "arrow.up")
